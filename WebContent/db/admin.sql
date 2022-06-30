@@ -1,0 +1,18 @@
+-- ADMIN DDL
+DROP TABLE ADMIN CASCADE CONSTRAINTS;
+CREATE TABLE ADMIN(
+    aId VARCHAR2(30) PRIMARY KEY,
+    aPw VARCHAR2(30) NOT NULL,
+    aName VARCHAR2(30) NOT NULL
+);
+SELECT * FROM ADMIN;
+
+-- ADMIN DML
+-- (1) 관리자 로그인
+SELECT * FROM ADMIN WHERE aId='admin1' AND aPw='111';
+-- (2) 로그인 후 세션에 넣을 용도 : aId로 AdminDto 가져오기
+SELECT * FROM ADMIN WHERE aId='admin1';
+-- ADMIN DUMMY
+INSERT INTO ADMIN (aId, aPw, aName) VALUES ('admin1', '111', '관리자1');
+INSERT INTO ADMIN (aId, aPw, aName) VALUES ('admin2', '222', '관리자2');
+COMMIT;
