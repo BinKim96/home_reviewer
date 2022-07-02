@@ -18,7 +18,7 @@ public class RbReviewBoardWriteService implements Service {
 		if(result==ReviewBoardDao.SUCCESS) {
 			request.setAttribute("reviewWriteResult", "리뷰작성성공");
 		}else {
-			request.setAttribute("reviewWriteResult", "리뷰작성실패");
+			request.setAttribute("reviewWriteError", "리뷰작성실패");
 		}
 
 	}

@@ -26,6 +26,12 @@
   <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
+  <c:if test="${not empty reviewWriteResult}">
+	<script>alert('${reviewWriteResult }');</script>
+  </c:if>
+  <c:if test="${not empty reviewWriteError}">
+	<script>alert('${reviewWriteError }');</script>
+  </c:if>
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <table>
@@ -70,22 +76,6 @@
   	</tr>
   	</c:if>
   </table>
-  </div>
-  
-  <form action="${conPath }/reviewBoardWrite.do">
-  <input type="hidden" name="mvId" value="${movie.mvId }">
-  <table>
-  <caption>한줄평 남기기</caption>
-  <c:if test="${not empty member }">
-	<tr><td>
-	<textarea rows="2" cols="120" name="wmemo"></textarea>
-	<input type="submit" value="댓글달기">
-	</td></tr>
-  </c:if>
-  <c:if test="${empty member }"><tr><td><a href="${conPath }/loginView.do">글쓰기는 사용자 로그인 이후에만 가능합니다</a></td></tr></c:if>
-  </table>
-  </form>
-  
   <table>
 	<tr>
 	  <th>한줄평</th>
@@ -98,7 +88,7 @@
 	  </tr>
 	</c:if>
 	<c:if test="${reviewList.size() != 0 }">
-	  <c:forEach items="${reviewList }" var="review">
+	  <c:forEach var="review" items="${reviewList }" >
 		<tr>
 		  <td>${review.rbContent }</td>
 		  <td>${review.mId }</td>
@@ -107,21 +97,44 @@
 	  </c:forEach>
 	</c:if>
   </table>
+  
+  
+  <form action="${conPath }/reviewBoardWrite.do">
+  <input type="hidden" name="mvId" value="${movie.mvId }">
+  <input type="hidden" name="mId" value="${member.mId }">
+    <table>
+      <caption>한줄평 남기기</caption>
+      <c:if test="${not empty member }">
+	    <tr>
+	      <td>
+	        <textarea rows="2" cols="120" name="rbContent"></textarea>
+	        <input type="submit" value="댓글달기">
+	      </td>
+	    </tr>
+      </c:if>
+      <c:if test="${empty member }"><tr><td><a href="${conPath }/loginView.do">리뷰 작성은  로그인 이후에만 가능합니다</a></td></tr></c:if>
+    </table>
+  </form>
+  
+  
+  
+  
   <div class="paging">
     <c:if test="${startPage > BLOCKSIZE }">
-			[ <a href="${conPath }/movieContent.do?pageNum=${startPage-1}&mvId=${reviewList.mvId }"> 이전 </a> ]
+			[ <a href="${conPath }/movieContent.do?pageNum=${startPage-1}&mvId=${movie.mvId }"> 이전 </a> ]
 	</c:if>
 	<c:forEach var="i" begin="${startPage }" end="${endPage }">
 	  <c:if test="${i == pageNum }">
 		<b> [ ${i } ] </b>
 	  </c:if>
 	  <c:if test="${i != pageNum }">
-		[ <a href="${conPath }/movieContent.do?pageNum=${i}&mvId=${reviewList.mvId }"> ${i } </a> ]
+		[ <a href="${conPath }/movieContent.do?pageNum=${i}&mvId=${movie.mvId }"> ${i } </a> ]
 	  </c:if>
 	</c:forEach>
     <c:if test="${endPage<pageCnt }">
-		[ <a href="${conPath }/movieContent.do?pageNum=${endPage+1}&mvId=${reviewList.mvId }"> 다음 </a> ]
+		[ <a href="${conPath }/movieContent.do?pageNum=${endPage+1}&mvId=${movie.mvId }"> 다음 </a> ]
 	</c:if>
+  </div>
   </div>
 </body>
 </html>

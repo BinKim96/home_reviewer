@@ -24,8 +24,10 @@ public class RbReviewBoardListService implements Service {
 		final int PAGESIZE=5, BLOCKSIZE=5;
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
+		
 		ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
 		int mvId = Integer.parseInt(request.getParameter("mvId"));
+		
 		ArrayList<ReviewBoardDto> reviewList = rbDao.listReviewBoard(mvId, startRow, endRow);
 		request.setAttribute("reviewList", reviewList);
 		

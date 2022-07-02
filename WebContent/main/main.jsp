@@ -39,7 +39,7 @@
     <tr>
       <c:forEach var="movie" items="${lastMovies }">
         <td>
-          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
+          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&$mId=${member.mId}"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
           ${movie.mvTitle }(${movie.mvReleaseYear })<br>
           좋아요 : ${movie.mlCnt }
         </td>
@@ -51,7 +51,7 @@
   	<tr>
       <c:forEach var="movie" items="${popularMovies }">
         <td>
-          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
+          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&$mId=${member.mId}"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
           ${movie.mvTitle }(${movie.mvReleaseYear })<br>
           좋아요 : ${movie.mlCnt }
         </td>
