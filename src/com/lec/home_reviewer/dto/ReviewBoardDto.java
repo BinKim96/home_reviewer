@@ -11,8 +11,16 @@ public class ReviewBoardDto {
 	private int mvId;
 	
 	public ReviewBoardDto() {}
+	
+	public ReviewBoardDto(String rbContent, Date rbRdate, String rbIp, String mId, int mvId) {
+		this.rbContent = rbContent;
+		this.rbRdate = rbRdate;
+		this.rbIp = rbIp;
+		this.mId = mId;
+		this.mvId = mvId;
+	}
+
 	public ReviewBoardDto(int rbNum, String rbContent, Date rbRdate, String rbIp, String mId, int mvId) {
-		super();
 		this.rbNum = rbNum;
 		this.rbContent = rbContent;
 		this.rbRdate = rbRdate;

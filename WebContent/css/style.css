@@ -1,7 +1,8 @@
 @charset "UTF-8";
 #content_form table {border: 2px solid black; width:100%; margin: 0px auto;}
 #content_form table tr { background-color: white; height:40px; }
-#content_form table tr:hover { background-color: gray;
+#content_form table tr td:hover { 
+	background-color: gray;
 	cursor: pointer;
 }
 #content_form td, #content_form th {text-align: center; padding:5px; }

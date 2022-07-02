@@ -5,32 +5,34 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lec.home_reviewer.dao.ReviewBoardDao;
-import com.lec.home_reviewer.dto.ReviewBoardDto;
 
-public class RbReviewBoardListService implements Service {
+import com.lec.home_reviewer.dao.MovieDao;
+import com.lec.home_reviewer.dto.MovieDto;
+import com.lec.home_reviewer.dto.MovieGenreDto;
+import com.lec.home_reviewer.dto.MovieGradeDto;
+
+
+public class MvMovieListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String pageNum = request.getParameter("pageNum");
-		if(pageNum==null) {
-			if(request.getAttribute("pageNum")==null) {
+		if(pageNum == null) {
+			if(request.getAttribute("pageNum")==null) { // 글 수정이나 답변글처리시 mRequest를 사용하여서 request에 set함
 				pageNum = "1";
 			}else {
 				pageNum = (String)request.getAttribute("pageNum");
 			}
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE=5, BLOCKSIZE=5;
+		final int PAGESIZE=9, BLOCKSIZE=10;
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
-		ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
-		int mvId = Integer.parseInt(request.getParameter("mvId"));
-		ArrayList<ReviewBoardDto> reviewList = rbDao.listReviewBoard(mvId, startRow, endRow);
-		request.setAttribute("reviewList", reviewList);
-		
-		int totCnt = rbDao.getReviewBoardCnt();
-		int pageCnt = (int)Math.ceil((double)totCnt/PAGESIZE);//페이지갯수
+		MovieDao mvDao = MovieDao.getInstance();
+		ArrayList<MovieDto> movieList = mvDao.listMoive(startRow, endRow);
+		request.setAttribute("movieList", movieList);
+		int movieCnt = mvDao.getMovieCnt();
+		int pageCnt = (int)Math.ceil((double)movieCnt/PAGESIZE);
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE+1;
 		int endPage = startPage + BLOCKSIZE - 1;
 		if(endPage>pageCnt) {
@@ -40,9 +42,9 @@ public class RbReviewBoardListService implements Service {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("totCnt", totCnt); // totCnt는 없으면 boardList.size()대용
+		request.setAttribute("movieCnt", movieCnt); 
 		request.setAttribute("pageNum", currentPage);
-
+		
 	}
 
 }

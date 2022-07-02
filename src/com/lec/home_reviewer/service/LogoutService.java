@@ -10,5 +10,6 @@ public class LogoutService implements Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
+		session.removeAttribute("admin");
 	}
 }

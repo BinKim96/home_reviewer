@@ -30,7 +30,7 @@
   <div id="content_form">
   <table>
     <tr>
-      <th colspan="3">${movie.mvTitle }(${movie.mvReleaseYear })</th>
+      <th colspan="3">${movie.mvTitle }(${movie.mvReleaseYear }) 좋아요: ${movie.mlCnt }</th>
     </tr>
   	<tr>
   	  <td rowspan="7"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></td>
@@ -61,7 +61,67 @@
   	  <th>줄거리</th>
   	  <td>${movie.mvContent }</td>
   	</tr>
+  	<c:if test="${not empty admin }">
+  	<tr>
+  	  <td colspan="2">
+  	    <input type="button" value="수정" class="btn" onclick="location.href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'">
+  	    <input type="button" value="삭제" class="btn" onclick="location.href='${conPath}/movieDelete.do?mvId=${movie.mvId }'">
+  	  </td>
+  	</tr>
+  	</c:if>
   </table>
+  </div>
+  
+  <form action="${conPath }/reviewBoardWrite.do">
+  <input type="hidden" name="mvId" value="${movie.mvId }">
+  <table>
+  <caption>한줄평 남기기</caption>
+  <c:if test="${not empty member }">
+	<tr><td>
+	<textarea rows="2" cols="120" name="wmemo"></textarea>
+	<input type="submit" value="댓글달기">
+	</td></tr>
+  </c:if>
+  <c:if test="${empty member }"><tr><td><a href="${conPath }/loginView.do">글쓰기는 사용자 로그인 이후에만 가능합니다</a></td></tr></c:if>
+  </table>
+  </form>
+  
+  <table>
+	<tr>
+	  <th>한줄평</th>
+	  <th>작성자아이디</th>
+	  <th>글쓴날짜</th>
+	</tr>
+	<c:if test="${reviewList.size() eq 0 }">
+	  <tr>
+		<td colspan="3">등록된 후기가 없습니다 첫 후기를 남겨주세요!</td>
+	  </tr>
+	</c:if>
+	<c:if test="${reviewList.size() != 0 }">
+	  <c:forEach items="${reviewList }" var="review">
+		<tr>
+		  <td>${review.rbContent }</td>
+		  <td>${review.mId }</td>
+		  <td><fmt:formatDate value="${review.rbRdate }" type="date" dateStyle="short"/></td>
+		</tr>
+	  </c:forEach>
+	</c:if>
+  </table>
+  <div class="paging">
+    <c:if test="${startPage > BLOCKSIZE }">
+			[ <a href="${conPath }/movieContent.do?pageNum=${startPage-1}&mvId=${reviewList.mvId }"> 이전 </a> ]
+	</c:if>
+	<c:forEach var="i" begin="${startPage }" end="${endPage }">
+	  <c:if test="${i == pageNum }">
+		<b> [ ${i } ] </b>
+	  </c:if>
+	  <c:if test="${i != pageNum }">
+		[ <a href="${conPath }/movieContent.do?pageNum=${i}&mvId=${reviewList.mvId }"> ${i } </a> ]
+	  </c:if>
+	</c:forEach>
+    <c:if test="${endPage<pageCnt }">
+		[ <a href="${conPath }/movieContent.do?pageNum=${endPage+1}&mvId=${reviewList.mvId }"> 다음 </a> ]
+	</c:if>
   </div>
 </body>
 </html>

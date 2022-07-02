@@ -76,16 +76,16 @@ public class ReviewBoardDao {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, mvId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int rbNum = rs.getInt("rbNum");
+				String mId = rs.getString("mId");
 				String rbContent = rs.getString("rbContent");
 				Date rbRdate = rs.getDate("rbRdate");
 				String rbIp = rs.getString("rbIp");
-				String mId = rs.getString("mId");
-				dtos.add(new ReviewBoardDto(rbNum, rbContent, rbRdate, rbIp, mId, mvId));
+				dtos.add(new ReviewBoardDto(rbContent, rbRdate, rbIp, mId, mvId));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -101,16 +101,15 @@ public class ReviewBoardDao {
 		return dtos;
 	}
 	// (2)-1 해당영화리뷰 갯수
-	public int getReviewBoardCnt(int mvId) {
+	public int getReviewBoardCnt() {
 		int reviewBoardCnt = 0;
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
 		ResultSet         rs    = null;
-		String sql = "SELECT COUNT(*) FROM REVIEW_BOARD WHERE mvId=?";
+		String sql = "SELECT COUNT(*) FROM REVIEW_BOARD";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, mvId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				reviewBoardCnt = rs.getInt(1);

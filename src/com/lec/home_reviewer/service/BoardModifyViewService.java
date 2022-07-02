@@ -1,11 +1,10 @@
-package com.lec.home_reviewer.controller;
+package com.lec.home_reviewer.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lec.home_reviewer.dao.BoardDao;
 import com.lec.home_reviewer.dto.BoardDto;
-import com.lec.home_reviewer.service.Service;
 
 public class BoardModifyViewService implements Service {
 

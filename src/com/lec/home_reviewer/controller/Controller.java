@@ -14,6 +14,7 @@ import com.lec.home_reviewer.service.BoardContentService;
 import com.lec.home_reviewer.service.BoardDeleteService;
 import com.lec.home_reviewer.service.BoardListService;
 import com.lec.home_reviewer.service.BoardModifyService;
+import com.lec.home_reviewer.service.BoardModifyViewService;
 import com.lec.home_reviewer.service.BoardReplyService;
 import com.lec.home_reviewer.service.BoardReplyViewService;
 import com.lec.home_reviewer.service.BoardWriteService;
@@ -22,9 +23,17 @@ import com.lec.home_reviewer.service.MJoinService;
 import com.lec.home_reviewer.service.MLoginService;
 import com.lec.home_reviewer.service.MemailConfirmService;
 import com.lec.home_reviewer.service.MidConfirmService;
+import com.lec.home_reviewer.service.MvMovieListService;
+import com.lec.home_reviewer.service.MvMovieModifyService;
+import com.lec.home_reviewer.service.MvMovieRegisterService;
+import com.lec.home_reviewer.service.MvMovieSearchListService;
 import com.lec.home_reviewer.service.MvMainMovieListService;
+import com.lec.home_reviewer.service.MvMovieDeleteService;
 import com.lec.home_reviewer.service.MvmovieContentService;
+import com.lec.home_reviewer.service.MvmovieModifyViewService;
+import com.lec.home_reviewer.service.MvmovieRegisterViewService;
 import com.lec.home_reviewer.service.RbReviewBoardListService;
+import com.lec.home_reviewer.service.RbReviewBoardWriteService;
 import com.lec.home_reviewer.service.Service;
 
 /**
@@ -150,10 +159,57 @@ public class Controller extends HttpServlet {
 		***************************************/
 		}else if(com.equals("/movieContent.do")) {
 			service = new MvmovieContentService();
-			//service = new RbReviewBoardListService();
+			service.execute(request, response);
+			service = new RbReviewBoardListService(); 
 			service.execute(request, response);
 			viewPage = "movie/movieContent.jsp";
+			
+		}else if(com.equals("/movieList.do")) {
+			service = new MvMovieListService();
+			service.execute(request, response);
+			viewPage = "movie/moiveList.jsp";
+			
+		}else if(com.equals("/movieRegisterView.do")) {
+			service = new MvmovieRegisterViewService();
+			service.execute(request, response);
+			viewPage = "movie/movieRegister.jsp";
+			
+		}else if(com.equals("/movieRegister.do")) {
+			service = new MvMovieRegisterService();
+			service.execute(request, response);
+			viewPage = "movieList.do";
+		}else if(com.equals("/movieModifyView.do")) {
+			service = new MvmovieModifyViewService();
+			service.execute(request, response);
+			viewPage = "movie/movieModify.jsp";
+		
+		}else if(com.equals("/movieMoidfy.do")) {
+			service = new MvMovieModifyService();
+			service.execute(request, response);
+			viewPage = "movieList.do";
+			
+		}else if(com.equals("/movieDelete.do")) {
+			service = new MvMovieDeleteService();
+			service.execute(request, response);
+			viewPage = "movieList.do";
+			
+		}else if(com.equals("/movieSearchList.do")) {
+			service = new MvMovieSearchListService();
+			service.execute(request, response);
+			viewPage = "movie/movieSearchList.jsp";
+		
+		}else if(com.equals("/reviewBoardWrite.do")) {
+			service = new RbReviewBoardWriteService();
+			service.execute(request, response);
+			viewPage = "movieContent.do";
+			
+		/**************************************
+		************ reviewboard 관련 요청 ************
+		***************************************/
+		}else if(com.equals("")) {
+			
 		}
+		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

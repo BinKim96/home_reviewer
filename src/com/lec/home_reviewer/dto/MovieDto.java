@@ -21,6 +21,23 @@ public class MovieDto {
 	
 	public MovieDto() {}
 	
+	
+	public MovieDto(int mvId, String mvTitle, int gId, Date mvReleaseDate, String mvDirector, String mvCast,
+			String mvRunningTime, int grId, String mvPoster, String mvContent, Date mvRdate) {
+		this.mvId = mvId;
+		this.mvTitle = mvTitle;
+		this.gId = gId;
+		this.mvReleaseDate = mvReleaseDate;
+		this.mvDirector = mvDirector;
+		this.mvCast = mvCast;
+		this.mvRunningTime = mvRunningTime;
+		this.grId = grId;
+		this.mvPoster = mvPoster;
+		this.mvContent = mvContent;
+		this.mvRdate = mvRdate;
+	}
+
+
 	public MovieDto(int mvId, String mvTitle, String mvReleaseYear, String mvPoster) { // 관리자 영화목록
 		super();
 		this.mvId = mvId;
@@ -72,6 +89,14 @@ public class MovieDto {
 		this.mvRdate = mvRdate;
 		this.mlCnt = mlCnt;
 	}
+	public MovieDto(int mvId, String mvTitle, String mvReleaseYear, String mvPoster, int mlCnt) {
+		this.mvId = mvId;
+		this.mvTitle = mvTitle;
+		this.mvReleaseYear = mvReleaseYear;
+		this.mvPoster = mvPoster;
+		this.mlCnt = mlCnt;
+	}
+
 	public int getMvId() {
 		return mvId;
 	}

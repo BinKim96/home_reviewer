@@ -11,15 +11,25 @@ CREATE TABLE MOVIE(
     mvCast VARCHAR2(100) NOT NULL,
     mvRunningTime VARCHAR2(10) NOT NULL,
     grId NUMBER(1) REFERENCES GRADE(grId),
-    mvPoster VARCHAR2(50) NOT NULL,
+    mvPoster VARCHAR2(100) NOT NULL,
     mvContent VARCHAR2(4000) NOT NULL,
     mvRdate DATE DEFAULT SYSDATE NOT NULL
 );
 SELECT * FROM MOVIE;
 -- MOVIE DML
     -- (1)영화이름검색(사용자, 관리자)
-    SELECT * FROM MOVIE WHERE mvTitle LIKE '%'||'범'||'%';
-    -- (2)영화등록(관리자)#
+    SELECT mvTitle, gName, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grName, mvPoster, mvContent,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt 
+        FROM MOVIE M, GENRE G, GRADE GR 
+        WHERE M.gId=G.gId AND M.grId=GR.grId AND mvTitle LIKE '%'||'베'||'%'; 
+    
+    SELECT *
+        FROM(SELECT ROWNUM RN, A.* FROM(SELECT M.mvId, M.mvTitle, M.mvPoster, TO_CHAR(M.mvReleaseDate, 'YYYY') mvReleaseYear, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M WHERE mvTitle LIKE '%'||'베'||'%' ORDER BY mvReleaseDate DESC) A)
+        WHERE RN BETWEEN 1 AND 5;
+    commit;
+    -- (1)-1 검색한 영화 갯수
+    SELECT COUNT(*) FROM(SELECT M.mvId, M.mvTitle, M.mvPoster, TO_CHAR(M.mvReleaseDate, 'YYYY') mvReleaseYear, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M WHERE mvTitle LIKE TRIM('%'||'베'||'%') ORDER BY mvReleaseDate DESC);
+    SELECT COUNT(*) FROM MOVIE WHERE mvTitle LIKE '%'||'베'||'%';
+    -- (2)영화등록(관리자)
     INSERT INTO MOVIE (mvId, mvTitle, gId, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grId, mvPoster, mvContent) 
                 VALUES(MOVIE_SEQ.NEXTVAL ,'마녀2', 2, '2022-06-15', '박훈정', '신시아, 박은빈, 서은수, 진구', '137분', 3, '마녀2.jpg', '자윤이 사라진 뒤, 정체불명의 집단의 무차별 습격으로 마녀 프로젝트가 진행되고 있는 아크가 초토화된다. 그곳에서 홀로 살아남은 소녀는 생애 처음 세상 밖으로 발을 내딛고 우연히 만난 경희의 도움으로 농장에서 지내며 따뜻한 일상에 적응해간다. 한편, 소녀가 망실되자 행방을 쫓는 책임자 장과 마녀 프로젝트의 창시자 백총괄의 지령을 받고 제거에 나선 본사 요원 조현, 경희의 농장 소유권을 노리는 조직의 보스 용두와 상해에서 온 의문의 4인방까지 각기 다른 목적을 지닌 세력이 모여들기 시작하면서 소녀 안에 숨겨진 본성이 깨어나는데...');
     INSERT INTO MOVIE (mvId, mvTitle, gId, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grId, mvPoster, mvContent) 
@@ -29,30 +39,32 @@ SELECT * FROM MOVIE;
     INSERT INTO MOVIE (mvId, mvTitle, gId, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grId, mvPoster, mvContent) 
                 VALUES(MOVIE_SEQ.NEXTVAL ,'귀멸의 칼날 극장판 무한열차편', 26, '2021-01-27', '소토자키 하루오', '하나에 나츠키, 카토 아카리', '117분', 3, '귀멸의 칼날_극장판무한열차편.jpg', '혈귀로 변한 여동생 ‘네즈코’를 되돌리기 위해 귀살대가 된 ‘탄지로’! 어둠 속을 달리는 무한열차에서 승객들이 흔적 없이 사라진다는 소식에 ‘젠이츠’, ‘이노스케’와 함께 임무 수행을 위해 무한열차에 탑승한다. 그리고 그 곳에서 만난 귀살대 최강 검사 염주 ‘렌고쿠’! 이들은 무한열차에 숨어 있는 혈귀의 존재를 직감하고 모두를 구하기 위해 목숨을 건 혈전을 시작하는데… 그 칼로 악몽을 끊어라!');             
     -- (3)영화목록(관리자, 최신등록순으로)(#, , )
-    SELECT mvTitle, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvRdate DESC; 
+    SELECT mvTitle, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvReleaseDate DESC; 
     SELECT mvTitle || '(' || (SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=MOVIE.mvId GROUP BY mvId) || ')' mvTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvRdate DESC;
     
     SELECT mvTitle, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvRdate DESC; 
     
     -- 관리자가 영화등록한순으로(top-N구문) --
     SELECT * 
-        FROM (SELECT ROWNUM RN, mvTitle, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvRdate DESC)
+        FROM (SELECT ROWNUM RN, mvId, mvTitle, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvRdate DESC)
         WHERE RN BETWEEN 1 AND 5;
-   
+   SELECT * 
+        FROM (SELECT ROWNUM RN, MVID, MVTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC) 
+        WHERE RN BETWEEN 1 AND 3;
      -- 인기순 탑쓰리
     SELECT * 
-        FROM (SELECT MVID, MVTITLE, MVRELEASEDATE, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MLCNT DESC, MVRELEASEDATE DESC) 
+        FROM (SELECT MVID, MVTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, MVPOSTER, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M ORDER BY MLCNT DESC, MVRELEASEDATE DESC) 
         WHERE ROWNUM<4;    
      
     -- 최신개봉순 탑쓰리
     SELECT * 
-        FROM (SELECT MVID, MVTITLE, MVRELEASEDATE, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC) 
+        FROM (SELECT MVID, MVTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC) 
         WHERE ROWNUM<4;
         
     -- (3)-1 전체영화갯수
     SELECT COUNT(*) FROM MOVIE;
     -- (4)영화상세보기(사용자,관리자) -> mvId로 MovieDto가져오기
-    SELECT mvTitle, G.gName, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvReleaseDate, mvDirector, mvCast, mvRunningTime, GR.grName, mvPoster, mvContent,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt 
+    SELECT mvTitle, gName, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grName, mvPoster, mvContent,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt 
         FROM MOVIE M, GENRE G, GRADE GR 
         WHERE M.gId=G.gId AND M.grId=GR.grId AND mvId=3; 
     -- (5)영화수정(관리자)
@@ -77,3 +89,4 @@ INSERT INTO MOVIE (mvId, mvTitle, gId, mvReleaseDate, mvDirector, mvCast, mvRunn
 SELECT * FROM GENRE;
 SELECT * FROM GRADE;
 COMMIT;
+SELECT *  FROM (SELECT MVID, MVTITLE, MVRELEASEDATE, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC)  WHERE ROWNUM<4

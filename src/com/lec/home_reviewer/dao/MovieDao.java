@@ -13,6 +13,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.lec.home_reviewer.dto.MovieDto;
+import com.lec.home_reviewer.dto.MovieGenreDto;
+import com.lec.home_reviewer.dto.MovieGradeDto;
 
 public class MovieDao {
 	public static final int SUCCESS = 1; 
@@ -69,13 +71,13 @@ public class MovieDao {
 		return result;
 	}
 	// (2)-1  영화목록(관리자용) -> 페이징 필요
-	public ArrayList<MovieDto> adminListMoive(int startRow, int endRow){
+	public ArrayList<MovieDto> listMoive(int startRow, int endRow){
 		ArrayList<MovieDto> movies = new ArrayList<MovieDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql= "SELECT *" + 
-				"        FROM (SELECT ROWNUM RN, mvId, mvTitle, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvPoster FROM MOVIE ORDER BY mvRdate DESC)" + 
+				"        FROM (SELECT ROWNUM RN, MVID, MVTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, MVPOSTER, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId), 0) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC)" + 
 				"        WHERE RN BETWEEN ? AND ?";
 		try {
 			conn= getConnection();
@@ -85,10 +87,11 @@ public class MovieDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int mvId = rs.getInt("mvId");
-				String mvTitle = rs.getString("mvTitle");
+				String mvTitle = rs.getString("mvtitle");
 				String mvReleaseYear = rs.getString("mvReleaseYear");
 				String mvPoster = rs.getString("mvPoster");
-				movies.add(new MovieDto(mvId, mvTitle, mvReleaseYear, mvPoster));
+				int mlCnt = rs.getInt("mlCnt");
+				movies.add(new MovieDto(mvId, mvTitle, mvReleaseYear, mvPoster, mlCnt));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()+"SQL문 오류임");
@@ -110,7 +113,7 @@ public class MovieDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT *" + 
-				"        FROM (SELECT MVID, MVTITLE, MVRELEASEDATE, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC)" + 
+				"        FROM (SELECT MVID, MVTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, MVPOSTER, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId), 0) mlCnt FROM MOVIE M ORDER BY MVRELEASEDATE DESC)" + 
 				"        WHERE ROWNUM<4";
 		try {
 			conn = getConnection();
@@ -119,10 +122,10 @@ public class MovieDao {
 			while(rs.next()) {
 				int mvId = rs.getInt("mvId");
 				String mvTitle = rs.getString("mvtitle");
-				Date mvReleaseDate = rs.getDate("mvreleasedate");
+				String mvReleaseYear = rs.getString("mvReleaseYear");
 				String mvPoster = rs.getString("mvPoster");
 				int mlCnt = rs.getInt("mlCnt");
-				lastMovies.add(new MovieDto(mvId ,mvTitle, mvReleaseDate, mvPoster, mlCnt));
+				lastMovies.add(new MovieDto(mvId ,mvTitle, mvReleaseYear, mvPoster, mlCnt));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -144,7 +147,7 @@ public class MovieDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT *" + 
-				"        FROM (SELECT mvId, MVTITLE, MVRELEASEDATE, MVPOSTER,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt FROM MOVIE M ORDER BY MLCNT DESC, MVRELEASEDATE DESC)" + 
+				"        FROM (SELECT mvId, MVTITLE, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, MVPOSTER, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M ORDER BY MLCNT DESC, MVRELEASEDATE DESC)" + 
 				"        WHERE ROWNUM<4";
 		try {
 			conn = getConnection();
@@ -153,10 +156,10 @@ public class MovieDao {
 			while(rs.next()) {
 				int mvId = rs.getInt("mvId");
 				String mvTitle = rs.getString("mvtitle");
-				Date mvReleaseDate = rs.getDate("mvreleasedate");
+				String mvReleaseYear = rs.getString("mvReleaseYear");
 				String mvPoster = rs.getString("mvPoster");
 				int mlCnt = rs.getInt("mlCnt");
-				popularMovies.add(new MovieDto(mvId, mvTitle, mvReleaseDate, mvPoster, mlCnt));
+				popularMovies.add(new MovieDto(mvId, mvTitle, mvReleaseYear, mvPoster, mlCnt));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -172,32 +175,27 @@ public class MovieDao {
 		return popularMovies;
 	}
 	// (3) 영화검색(공용)
-	public ArrayList<MovieDto> searchMoive(){
-		ArrayList<MovieDto> movies = new ArrayList<MovieDto>();
+	public ArrayList<MovieDto> searchMoive(String mvTitle, int startRow, int endRow){
+		ArrayList<MovieDto> searchedMovies = new ArrayList<MovieDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql= "SELECT mvTitle, gName, TO_CHAR(mvReleaseDate, 'YYYY') mvReleaseYear, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grName, mvPoster, mvContent,(SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId) mlCnt" + 
-				"        FROM MOVIE M, GENRE G, GRADE GR" + 
-				"        WHERE M.gId=G.gId AND M.grId=GR.grId AND mvTitle LIKE '%'||?||'%'";
+		String sql= "SELECT *" + 
+				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT M.mvId, M.mvTitle, M.mvPoster, TO_CHAR(M.mvReleaseDate, 'YYYY') mvReleaseYear, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M WHERE mvTitle LIKE '%'|| ? ||'%' ORDER BY mvReleaseDate DESC) A)" + 
+				"        WHERE RN BETWEEN ? AND ?";
 		try {
 			conn= getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mvTitle);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int mvId = rs.getInt("mvId");
-				String mvTitle = rs.getString("mvtitle");
-				String gName = rs.getString("gName");
-				String mvReleaseYear = rs.getString("mvReleaseYear");
-				Date mvReleaseDate = rs.getDate("mvReleaseDate");
-				String mvDirector = rs.getString("mvDirector");
-				String mvCast = rs.getString("mvCast");
-				String mvRunningTime = rs.getString("mvRunningTime");
-				String grName = rs.getString("grName");
 				String mvPoster = rs.getString("mvPoster");
-				String mvContent = rs.getString("mvContent");
+				String mvReleaseYear = rs.getString("mvReleaseYear");
 				int mlCnt = rs.getInt("mlCnt");
-				movies.add(new MovieDto(mvId, mvTitle, gName, mvReleaseYear, mvReleaseDate, mvDirector, mvCast, mvRunningTime, grName, mvPoster, mvContent, mlCnt));
+				searchedMovies.add(new MovieDto(mvId, mvTitle, mvReleaseYear, mvPoster, mlCnt));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()+"SQL문 오류임");
@@ -210,7 +208,34 @@ public class MovieDao {
 				// TODO Auto-generated catch block
 			}
 		}
-		return movies;
+		return searchedMovies;
+	}
+	// (3)-1 검색된 영화 갯수
+	public int getSearchedMovieCnt() {
+		int searchedMovieCnt = 0;
+		Connection        conn  = null;
+		PreparedStatement pstmt = null;
+		ResultSet         rs    = null;
+		String sql = "SELECT COUNT(*) FROM MOVIE";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				searchedMovieCnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn  != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		return searchedMovieCnt;
 	}
 	// (4) 영화상세보기(공용) => mvId로 MovieDto가져오기
 	public MovieDto getMovie(int mvId) {
@@ -346,5 +371,62 @@ public class MovieDao {
 		}
 		return movieCnt;
 	}
-
+	// (8) 영화 등급 가져오기
+	public ArrayList<MovieGradeDto> getGrade (){
+		ArrayList<MovieGradeDto> movieGrades = new ArrayList<MovieGradeDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM GRADE";
+		try {
+			conn= getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int grId = rs.getInt("grId");
+				String grName = rs.getString("grName");
+				movieGrades.add(new MovieGradeDto(grId, grName));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()+"SQL문 오류임");
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		return movieGrades;
+	}
+	// (8) 영화 장르 가져오기
+		public ArrayList<MovieGenreDto> getGenre (){
+			ArrayList<MovieGenreDto> movieGenres = new ArrayList<MovieGenreDto>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT * FROM GENRE";
+			try {
+				conn= getConnection();
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					int gId = rs.getInt("gId");
+					String gName = rs.getString("gName");
+					movieGenres.add(new MovieGenreDto(gId, gName));
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage()+"SQL문 오류임");
+			} finally {
+				try {
+					if(rs!=null) rs.close();
+					if(pstmt!=null) pstmt.close();
+					if(conn!=null) conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+				}
+			}
+			return movieGenres;
+		}
 }

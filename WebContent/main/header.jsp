@@ -117,7 +117,7 @@
 </head>
 <body>
   <header>
-    <c:if test="${empty member }">
+    <c:if test="${empty member and empty admin}">
       <div id="header_nav">
         <div class="gnb">
           <ul>
@@ -127,8 +127,25 @@
           </ul>
         </div>
       </div>
+      <div id="header_info">
+        <div class="logo">
+        <a href="${conPath }/main.do">HOME_REVIEWR</a>
+        </div>
+        <div class="search">
+          <form action="${conPath }/movieSearchList.do" method="post">
+            <input type="text" name="mvTitle" placeholder="Search movies..."/>
+            <input type="submit" class="btn_search" value="SEARCH">
+          </form>
+        </div>
+        <div class="service">
+          <ul>
+            <li><a href="${conPath }/movieList.do">MOVIE</a></li>
+            <li><a href="${conPath }/boardList.do">FREE BOARD</a></li>
+          </ul>
+        </div>
+      </div>
     </c:if>
-    <c:if test="${not empty member }">
+    <c:if test="${not empty member and empty admin}">
       <div id="header_nav">
         <div class="gnb">
           <ul>
@@ -138,25 +155,52 @@
           </ul>
         </div>
       </div>
-    </c:if>
       <div id="header_info">
         <div class="logo">
         <a href="${conPath }/main.do">HOME_REVIEWR</a>
         </div>
         <div class="search">
-          <form action="#">
-            <input type="text" placeholder="Search movies..."/>
+          <form action="${conPath }/movieSearchList.do">
+            <input type="text" name="mvTitle" placeholder="Search movies..."/>
             <input type="submit" class="btn_search" value="SEARCH">
           </form>
         </div>
-       
-      <div class="service">
-        <ul>
-          <li><a href="#">MOVIE</a></li>
-          <li><a href="${conPath }/boardList.do">FREE BOARD</a></li>
-        </ul>
+        <div class="service">
+          <ul>
+            <li><a href="${conPath }/movieList.do">MOVIE</a></li>
+            <li><a href="${conPath }/boardList.do">FREE BOARD</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </c:if>
+     <c:if test="${empty member and not empty admin}">
+      <div id="header_nav">
+        <div class="gnb">
+          <ul>
+            <li><a href="${conPath }/logout.do">LOG OUT</a></li>
+            <li><a href="${conPath }/myPageView.do">${admin.aId }님</a></li>
+            <li><a href="${conPath }/main.do">HOME</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="header_info">
+        <div class="logo">
+        <a href="${conPath }/main.do">HOME_REVIEWR</a>
+        </div>
+        <div class="search">
+          <form action="${conPath }/movieSearchList.do" method="post">
+            <input type="text" name="mvTitle" placeholder="Search movies..." >
+            <input type="submit" class="btn_search" value="SEARCH">
+          </form>
+        </div>
+        <div class="service">
+          <ul>
+            <li><a href="${conPath }/movieList.do">MOVIE</a></li>
+            <li><a href="${conPath }/boardList.do">FREE BOARD</a></li>
+          </ul>
+        </div>
+      </div>
+    </c:if>
   </header>
 </body>
 </html>

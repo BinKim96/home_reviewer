@@ -31,33 +31,32 @@
   <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
-
   <c:set var="SUCCESS" value="1"/>
-	<c:set var="FAIL" value="0"/>
-	<c:if test="${boardWriteResult eq SUCCESS}">
-		<script>alert('글쓰기 성공');</script>
-	</c:if>
-	<c:if test="${boardWriteResult eq FAIL}">
-		<script>alert('글쓰기 실패');</script>
-	</c:if>
-	<c:if test="${boardDeleteResult eq SUCCESS}">
-		<script>alert('글삭제 성공');</script>
-	</c:if>
-	<c:if test="${boardDeleteResult eq FAIL}">
-		<script>alert('글삭제 실패');</script>
-	</c:if>
-	<c:if test="${boardMoifyResult eq SUCCESS}">
-		<script>alert('글수정 성공');</script>
-	</c:if>
-	<c:if test="${boardMoifyResult eq FAIL}">
-		<script>alert('글수정 실패');</script>
-	</c:if>
-	<c:if test="${boardReplyResult eq SUCCESS}">
-		<script>alert('답글쓰기 성공');</script>
-	</c:if>
-	<c:if test="${boardReplyResult eq FAIL}">
-		<script>alert('답글쓰기 실패');</script>
-	</c:if>
+  <c:set var="FAIL" value="0"/>
+  <c:if test="${boardWriteResult eq SUCCESS}">
+	<script>alert('글쓰기 성공');</script>
+  </c:if>
+  <c:if test="${boardWriteResult eq FAIL}">
+	<script>alert('글쓰기 실패');</script>
+  </c:if>
+  <c:if test="${boardDeleteResult eq SUCCESS}">
+	<script>alert('글삭제 성공');</script>
+  </c:if>
+  <c:if test="${boardDeleteResult eq FAIL}">
+	<script>alert('글삭제 실패');</script>
+  </c:if>
+  <c:if test="${boardMoifyResult eq SUCCESS}">
+	<script>alert('글수정 성공');</script>
+  </c:if>
+  <c:if test="${boardMoifyResult eq FAIL}">
+	<script>alert('글수정 실패');</script>
+  </c:if>
+  <c:if test="${boardReplyResult eq SUCCESS}">
+	<script>alert('답글쓰기 성공');</script>
+  </c:if>
+  <c:if test="${boardReplyResult eq FAIL}">
+	<script>alert('답글쓰기 실패');</script>
+  </c:if>
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <table>

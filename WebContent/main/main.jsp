@@ -22,7 +22,7 @@
 	  
   });
 </script>
-  <%-- <link href="${conPath }/css/style.css" rel="stylesheet"> --%>
+  <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
   <c:if test="${not empty loginErrorMsg}">
@@ -31,6 +31,7 @@
 			history.back();
 		</script>
   </c:if>
+  
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <table>
@@ -39,7 +40,7 @@
       <c:forEach var="movie" items="${lastMovies }">
         <td>
           <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
-          ${movie.mvTitle }(${movie.mvReleaseDate })<br>
+          ${movie.mvTitle }(${movie.mvReleaseYear })<br>
           좋아요 : ${movie.mlCnt }
         </td>
       </c:forEach>
@@ -51,7 +52,7 @@
       <c:forEach var="movie" items="${popularMovies }">
         <td>
           <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
-          ${movie.mvTitle }(${movie.mvReleaseDate })<br>
+          ${movie.mvTitle }(${movie.mvReleaseYear })<br>
           좋아요 : ${movie.mlCnt }
         </td>
       </c:forEach>
