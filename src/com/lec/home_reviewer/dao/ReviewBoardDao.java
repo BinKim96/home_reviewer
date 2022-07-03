@@ -71,7 +71,7 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet         rs    = null;
 		String sql = "SELECT *" + 
-				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=? ORDER BY rbRdate DESC) A)" + 
+				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT rbNum, mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=? ORDER BY rbRdate DESC) A)" + 
 				"        WHERE RN BETWEEN ? AND ?";
 		try {
 			conn = getConnection();
@@ -81,11 +81,12 @@ public class ReviewBoardDao {
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				int rbNum = rs.getInt("rbNum");
 				String mId = rs.getString("mId");
 				String rbContent = rs.getString("rbContent");
 				Date rbRdate = rs.getDate("rbRdate");
 				String rbIp = rs.getString("rbIp");
-				dtos.add(new ReviewBoardDto(rbContent, rbRdate, rbIp, mId, mvId));
+				dtos.add(new ReviewBoardDto(rbNum, rbContent, rbRdate, rbIp, mId, mvId));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -101,15 +102,16 @@ public class ReviewBoardDao {
 		return dtos;
 	}
 	// (2)-1 해당영화리뷰 갯수
-	public int getReviewBoardCnt() {
+	public int getReviewBoardCnt(int mvId) {
 		int reviewBoardCnt = 0;
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
 		ResultSet         rs    = null;
-		String sql = "SELECT COUNT(*) FROM REVIEW_BOARD";
+		String sql = "SELECT COUNT(*) FROM REVIEW_BOARD WHERE mvId=?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mvId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				reviewBoardCnt = rs.getInt(1);
@@ -128,16 +130,22 @@ public class ReviewBoardDao {
 		return reviewBoardCnt;
 	}
 	// (3) 리뷰수정(사용자)
-	public int modifyReviewBoard(String rbContent, int rbNum) {
+	public int modifyReviewBoard(String rbContent, String rbIp, int rbNum, int mvId, String mId) {
 		int result = FAIL;
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE REVIEW_BOARD SET rbContent=? WHERE rbNum=?";
+		String sql = "UPDATE REVIEW_BOARD SET rbContent=?," + 
+				"                            rbRdate=SYSDATE," + 
+				"                            rbIp=?" + 
+				"                    WHERE rbNum=? AND mvId=? AND mId=?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rbContent);
-			pstmt.setInt(2, rbNum);
+			pstmt.setString(2, rbIp);
+			pstmt.setInt(3, rbNum);
+			pstmt.setInt(4, mvId);
+			pstmt.setString(5, mId);
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS? "리뷰수정성공":"리뷰수정실패");
 		} catch (SQLException e) {
@@ -151,7 +159,40 @@ public class ReviewBoardDao {
 			}
 		}
 		return result;
-	} 
+	}
+	//(3)-1 rbNum으로 reviewBoardDto보기
+	public ReviewBoardDto reviewModifyView(int rbNum) {
+		ReviewBoardDto dto = null;
+		Connection        conn  = null;
+		PreparedStatement pstmt = null;
+		ResultSet         rs    = null;
+		String sql = "SELECT * FROM REVIEW_BOARD WHERE rbNum=?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rbNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String rbContent = rs.getString("rbContent");
+				Date rbRdate = rs.getDate("rbRdat");
+				String rbIp = rs.getString("rbIp");
+				String mId = rs.getString("mId");
+				int mvId = rs.getInt("mvId");
+				dto = new ReviewBoardDto(rbContent, rbRdate, rbIp, mId, mvId);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn  != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		return dto;
+	}
 	// (4) 리뷰삭제(사용자, 관리자)
 	public int deleteReviewBoard(int rbNum) {
 		int result = FAIL;

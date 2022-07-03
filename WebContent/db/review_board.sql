@@ -24,11 +24,13 @@ CREATE TABLE REVIEW_BOARD(
     --(2)리뷰목록(사용자,관리자)-> startRow~endRow
     SELECT mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=1 ORDER BY rbRdate DESC ;
     SELECT *
-        FROM(SELECT ROWNUM RN, A.* FROM(SELECT mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=1 ORDER BY rbRdate DESC) A)
+        FROM(SELECT ROWNUM RN, A.* FROM(SELECT rbNum, mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=1 ORDER BY rbRdate DESC) A)
         WHERE RN BETWEEN 1 AND 3;
     --(3)리뷰수정(사용자)
-    UPDATE REVIEW_BOARD SET rbContent='범죄도시2 마동석 너무 남자다워요!'
-                    WHERE rbNum=1;
+    UPDATE REVIEW_BOARD SET rbContent='어이가 없네!',
+                            rbRdate=SYSDATE,
+                            rbIp='192.168.10.30'                              
+                    WHERE rbNum=3 AND mvId=1 AND mId='odj5555';
     --(4)리뷰삭제(사용자, 관리자)
     DELETE FROM REVIEW_BOARD WHERE rbNum=1;
     ROLLBACK;
@@ -42,5 +44,8 @@ CREATE TABLE REVIEW_BOARD(
         WHERE RN BETWEEN 1 AND 3;
     -- (7)자신이 작성한 댓글 갯수
     SELECT COUNT(*) FROM REVIEW_BOARD WHERE mId='odj5555';
+    -- (8)rbNum으로 dto 가져오기
+    SELECT * FROM REVIEW_BOARD WHERE rbNum='3';
 -- REVIEW_BOARD_DUMMY
 SELECT * FROM REVIEW_BOARD;
+COMMIT;

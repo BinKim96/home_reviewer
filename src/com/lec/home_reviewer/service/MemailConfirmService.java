@@ -14,7 +14,7 @@ public class MemailConfirmService implements Service {
 		// mEamil 중복체크
 		int result = mDao.mEmailConfirm(mEmail);
 		if(result == MemberDao.NONEXISTENT) {
-			request.setAttribute("emailConfirmResult", "<b>사용 가능한 이메일</b>");
+			request.setAttribute("emailConfirmResult", "사용 가능한 이메일");
 		}else {
 			request.setAttribute("emailConfirmResult", "<b>중복된 이메일</b>");
 		}

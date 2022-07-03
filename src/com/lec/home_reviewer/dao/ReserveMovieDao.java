@@ -17,7 +17,9 @@ import com.lec.home_reviewer.dto.ReserveMovieDto;
 
 public class ReserveMovieDao {
 	public static final int SUCCESS = 1; 
-	public static final int FAIL = 0; 
+	public static final int FAIL = 0;
+	public static final int RESERVE_CHECK =1;
+	public static final int RESERVE_UNCHECK =0;
 	// 싱글톤
 	private static ReserveMovieDao instance = new ReserveMovieDao();
 	public static ReserveMovieDao getInstance() {
@@ -36,8 +38,8 @@ public class ReserveMovieDao {
 		}
 		return conn;
 	}
-	// (1) 영화찜하기 
-	public int reserveMovie(String mId, int mvId) {
+	// (1) 해당 영화 찜하기 누르기(사용자)
+	public int insertReserve(String mId, int mvId) {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -61,8 +63,8 @@ public class ReserveMovieDao {
 		}
 		return result;
 	}
-	// (2) 영화찜해제
-	public int cleanReserveMovie(String mId, int mvId) {
+	// (2) 해당 영화 찜 취소(사용자)
+	public int deleteReserve(String mId, int mvId) {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -86,8 +88,35 @@ public class ReserveMovieDao {
 		}
 		return result;
 	}
-	
-	// (3) 찜한영화목록
+	// (3) 해당영화 찜 눌렀는지 안눌렀는지 여부
+	public int checkReserve(String mId, int mvId) {
+		int result = RESERVE_UNCHECK;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM RESERVE_MOVIE WHERE mId=? AND mvId=?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setInt(2, mvId);
+			rs = pstmt.executeQuery();
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		return result;
+	}
+	// (4) 찜한영화목록
 	public ArrayList<ReserveMovieDto> listReservedMovie(String mId, int startRow, int endRow) {
 		ArrayList<ReserveMovieDto> reservedMovies = new ArrayList<ReserveMovieDto>();
 		Connection conn = null;
@@ -123,7 +152,7 @@ public class ReserveMovieDao {
 		return reservedMovies;
 	}
 	
-	// (4) 찜한영화갯수
+	// (5) 찜한영화갯수
 	public int getReservedMovieCnt(String mId) {
 		int reservedMovieCnt = 0;
 		Connection        conn  = null;

@@ -8,23 +8,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <style>
-  	#content_form {
-		width: 700px; 
-		height:480px; 
-		margin: 0 auto;
-		border: 1px solid red;
-	}
-	table {
-		margin: 20px auto;
-		border: 1px solid red;
-	}
-	#idConfirmResult, #pwChkResult, #emailConfirmResult{
-		text-align: left; 
-		padding-left: 30px;
-	}
-	
-  </style>
+  <link href="${conPath }/css/member/join.css" rel="stylesheet">
+  <style></style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function(){
@@ -45,7 +30,7 @@
 			var mPw = $('input[name="mPw"]').val();
 			var mPwChk = $('input[name="mPwChk"]').val();
 			if(mPw == mPwChk){
-				$('#pwChkResult').html('<b>비밀번호 일치</b>');
+				$('#pwChkResult').html('비밀번호 일치');
 			}else{
 				$('#pwChkResult').html('<b>비밀번호 불일치</b>');
 			}
@@ -67,7 +52,7 @@
 		  }else if(!mEmail) {
 			  $('#emailConfirmResult').html(' &nbsp; ');
 		  }else {
-			  $('#emailConfirmResult').html('메일 형식을 지켜주세요');
+			  $('#emailConfirmResult').html('<b>메일 형식을 지켜주세요</b>');
 		  }
 	  });
 	  $('form').submit(function(){
@@ -94,90 +79,97 @@
 	  });
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
-  <div id="content_form">
-  <form action="${conPath }/memberJoin.do" method="post" enctype="multipart/form-data">
-  	<table>
-  	  <caption>회원가입</caption>
-  	  <tr>
-  	    <th>아이디</th>
-  	    <td>
-  	      <input type="text" name="mId" required="required">
-  	      
-  	    </td>
-  	  </tr>
-  	  <tr>
-  	    <td></td>
-  	    <td><div id="idConfirmResult"> &nbsp; </div></td>
-  	  </tr>
-  	  <tr>
-  	    <th>비밀번호</th>
-  	    <td>
-  	      <input type="password" name="mPw" required="required">
-  	    </td>
-  	  </tr>
-  	  <tr>
-  	    <td colspan="2"><div> &nbsp;</div></td>
-  	  </tr>
-  	  <tr>
-  	    <th>비밀번호 재확인</th>
-  	    <td>
-  	      <input type="password" name="mPwChk" required="required">
-  	    </td>
-  	  </tr>
-  	  <tr>
-  	    <td></td>
-  	    <td><div id="pwChkResult"> &nbsp; </div></td>
-  	  </tr>
-  	  <tr>
-  	    <th>이름</th>
-  	    <td>
-  	      <input type="text" name="mName" required="required">
-  	    </td>
-  	  </tr>
-  	   <tr>
-  	    <td colspan="2"><div> &nbsp;</div></td>
-  	  </tr>
-  	  <tr>
-  	    <th>이메일</th>
-  	    <td>
-  	      <input type="email" name="mEmail">
-  	    </td>
-  	  </tr>
-  	  <tr>
-  	    <td></td>
-  	    <td><div id="emailConfirmResult"> &nbsp; </div></td>
-  	  </tr>
-  	  <tr>
-  	    <th>사진</th>
-  	    <td>
-  	      <input type="file" name="mPhoto">
-  	    </td>
-  	  </tr>
-  	  <tr>
-  	    <td colspan="2"><div> &nbsp;</div></td>
-  	  </tr>
-  	  <tr>
-  	    <th>성별</th>
-  	    <td>
-  	      <label for="m" id="m">남자</label><input type="radio" name="mGender" value="m" checked="checked">
-  	      <label for="f">여자</label><input type="radio" name="mGender" value="f" id="f">
-  	    </td>
-  	  </tr>
-  	  <tr>
-  	    <td colspan="2"><div> &nbsp;</div></td>
-  	  </tr>
-  	  <tr>
-  	    <td colspan="2">
-  	      <input type="submit" value="가입하기" class="joinBtn_style">
-  	      <input type="reset" value="다시하기" class="joinBtn_style">
-  	    </td>
-  	  </tr>
-  	</table>
-  </form>
-  </div>
+	<form action="${conPath }/memberJoin.do" method="post" enctype="multipart/form-data">
+		<div id="border">
+			<table>
+				<tr>
+				  <td class="join"><div>&nbsp;</div>회원가입</td>
+				</tr>                   
+				<tr>
+				  <td></td>
+				</tr>
+				
+				<tr>
+					<td>아이디 <b>*</b></td>
+				</tr>
+				<tr>
+					<td>
+					  <input type="text" name="mId" required="required">
+					  <div id="idConfirmResult">&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>비밀번호 <b>*</b></td>
+				</tr>
+				<tr>
+					<td>
+					  <input type="password" name="mPw" required="required">
+					  <div>&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>비밀번호 재확인 <b>*</b></td>
+				</tr>
+				<tr>
+					<td>
+					  <input type="password" name="mPwChk" required="required">
+					  <div id="pwChkResult">&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>이름 <b>*</b></td>
+				</tr>
+				<tr>
+					<td>
+					  <input type="text" name="mName" required="required">
+					  <div>&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>이메일 <b>*</b></td>
+				</tr>
+				<tr>
+					<td>
+					  <input type="text" name="mEmail">
+					  <div id="emailConfirmResult">&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>사진</td>
+				</tr>
+				<tr>
+					<td>
+					  <input type="file" name="mPhoto">
+					  <div>&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>성별 <b>*</b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					  <label for="m" id="m">남자</label><input type="radio" name="mGender" value="m" checked="checked"> 
+					  <label for="f">여자</label><input type="radio" name="mGender" value="f" id="f">
+					  <div>&nbsp;</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+					  <input type="submit" value="가입하기" class="btn"> 
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
 </body>
 </html>

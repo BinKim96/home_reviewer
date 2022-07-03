@@ -62,8 +62,15 @@
   <table>
 	<tr>
 	  <td>
-		<c:if test="${not empty member }"><a href="${conPath }/boardWriteView.do">글쓰기</a></c:if>
-		<c:if test="${empty member }"><a href="${conPath }/loginView.do">글쓰기는 사용자 로그인 이후에만 가능합니다</a></c:if>
+		<c:if test="${not empty member and empty admin}">
+		  <a href="${conPath }/boardWriteView.do">글쓰기</a>
+		</c:if>
+		<c:if test="${empty member and empty admin }">
+	      <a href="${conPath }/loginView.do">글쓰기는 로그인 이후에만 가능합니다</a>
+		</c:if>
+		<c:if test="${empty member and not empty admin }">
+		  <p>자유게시판</p>
+		</c:if>
 	  </td>
     </tr>
   </table>
@@ -90,7 +97,7 @@
 			<c:if test="${i!=board.bIndent }"> &nbsp; &nbsp; </c:if>
 		  </c:forEach>
 		  ${board.bTitle }
-			<c:if test="${board.bHit > 10 }"><img src="${conPath }/img/hot.gif"></c:if>
+			<c:if test="${board.bHit > 10 }"><img src="${conPath }/img/hot.png" width="20" height="20"></c:if>
         </td>
         <td>${board.mId }</td>
         <td><fmt:formatDate value="${board.bRdate }" type="date" dateStyle="short"/></td>

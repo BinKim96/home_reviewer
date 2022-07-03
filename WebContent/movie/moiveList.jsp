@@ -47,12 +47,12 @@
   	  <c:set var="i" value="0"/>
       <c:forEach var="movie" items="${movieList }">
         <td>
-          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
-          ${movie.mvTitle }(${movie.mvReleaseYear })<br>
-          좋아요 : ${movie.mlCnt }
+          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a>
+          <p>${movie.mvTitle }(${movie.mvReleaseYear })</p>
+          <p><img src="${conPath }/img/checkedLike.png" width="16px" height="16px">  ${movie.mlCnt }</p>
         </td>
         <c:if test="${i%3 == 2 and i!=8}">
-        	</tr><tr>
+        	<tr></tr>
         </c:if>
         <c:set var="i" value="${i+1 }"/>
       </c:forEach>

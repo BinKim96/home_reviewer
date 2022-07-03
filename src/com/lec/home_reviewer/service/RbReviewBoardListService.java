@@ -21,7 +21,7 @@ public class RbReviewBoardListService implements Service {
 			}
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE=5, BLOCKSIZE=5;
+		final int PAGESIZE=2, BLOCKSIZE=1;
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
 		
@@ -31,7 +31,7 @@ public class RbReviewBoardListService implements Service {
 		ArrayList<ReviewBoardDto> reviewList = rbDao.listReviewBoard(mvId, startRow, endRow);
 		request.setAttribute("reviewList", reviewList);
 		
-		int totCnt = rbDao.getReviewBoardCnt();
+		int totCnt = rbDao.getReviewBoardCnt(mvId);
 		int pageCnt = (int)Math.ceil((double)totCnt/PAGESIZE);//페이지갯수
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE+1;
 		int endPage = startPage + BLOCKSIZE - 1;

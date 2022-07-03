@@ -33,7 +33,13 @@
   <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
-  
+  <c:if test="${not empty joinResult}">
+	<script>alert('${joinResult }');</script>
+  </c:if>
+  <c:if test="${not empty joinErrorMsg}">
+	<script>alert('${joinErrorMsg }');</script>
+  </c:if>
+  <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <div id="tabs">
   	<ul>

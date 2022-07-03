@@ -13,7 +13,7 @@ public class MvMovieSearchListService implements Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String pageNum = request.getParameter("pageNum");
-		String mvTitle = request.getParameter("mvTitle");
+		String schmvTitle = request.getParameter("schmvTitle");
 		if(pageNum==null) {
 			if(request.getAttribute("pageNum")==null) { // 글 수정이나 답변글처리시 mRequest를 사용하여서 request에 set함
 				pageNum = "1";
@@ -27,10 +27,10 @@ public class MvMovieSearchListService implements Service {
 		int endRow   = startRow + PAGESIZE -1;
 		
 		MovieDao mvDao = MovieDao.getInstance();
-		ArrayList<MovieDto> searchedMovies = mvDao.searchMoive(mvTitle, startRow, endRow);
+		ArrayList<MovieDto> searchedMovies = mvDao.searchMoive(schmvTitle, startRow, endRow);
 		request.setAttribute("searchedMovies", searchedMovies);
 		
-		int totCnt = mvDao.getSearchedMovieCnt();
+		int totCnt = mvDao.getSearchedMovieCnt(schmvTitle);
 		int pageCnt = (int)Math.ceil((double)totCnt/PAGESIZE);//페이지갯수
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE+1;
 		int endPage = startPage + BLOCKSIZE - 1;

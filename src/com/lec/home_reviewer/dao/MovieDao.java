@@ -175,25 +175,26 @@ public class MovieDao {
 		return popularMovies;
 	}
 	// (3) 영화검색(공용)
-	public ArrayList<MovieDto> searchMoive(String mvTitle, int startRow, int endRow){
+	public ArrayList<MovieDto> searchMoive(String schmvTitle, int startRow, int endRow){
 		ArrayList<MovieDto> searchedMovies = new ArrayList<MovieDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql= "SELECT *" + 
-				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT M.mvId, M.mvTitle, M.mvPoster, TO_CHAR(M.mvReleaseDate, 'YYYY') mvReleaseYear, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M WHERE mvTitle LIKE '%'|| ? ||'%' ORDER BY mvReleaseDate DESC) A)" + 
+				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT M.mvId, M.mvTitle, M.mvPoster, TO_CHAR(M.mvReleaseDate, 'YYYY') mvReleaseYear, NVL((SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=M.mvId GROUP BY mvId),0) mlCnt FROM MOVIE M WHERE mvTitle LIKE '%'||?||'%' ORDER BY mvReleaseDate DESC) A)" + 
 				"        WHERE RN BETWEEN ? AND ?";
 		try {
 			conn= getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mvTitle);
+			pstmt.setString(1, schmvTitle);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int mvId = rs.getInt("mvId");
-				String mvPoster = rs.getString("mvPoster");
+				String mvTitle = rs.getString("mvTitle");
 				String mvReleaseYear = rs.getString("mvReleaseYear");
+				String mvPoster = rs.getString("mvPoster");
 				int mlCnt = rs.getInt("mlCnt");
 				searchedMovies.add(new MovieDto(mvId, mvTitle, mvReleaseYear, mvPoster, mlCnt));
 			}
@@ -211,15 +212,16 @@ public class MovieDao {
 		return searchedMovies;
 	}
 	// (3)-1 검색된 영화 갯수
-	public int getSearchedMovieCnt() {
+	public int getSearchedMovieCnt(String schmvTitle) {
 		int searchedMovieCnt = 0;
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
 		ResultSet         rs    = null;
-		String sql = "SELECT COUNT(*) FROM MOVIE";
+		String sql = "SELECT COUNT(*) FROM MOVIE WHERE mvTitle LIKE '%'||?||'%'";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, schmvTitle);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				searchedMovieCnt = rs.getInt(1);

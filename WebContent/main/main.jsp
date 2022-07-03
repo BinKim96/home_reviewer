@@ -10,7 +10,7 @@
   <title>Insert title here</title>
   <style>
 	table {
-	width:70%; margin: 0 auto;
+	width:1000px; margin: 0 auto;
 	border: 1px solid red;
 	}
 	td {text-align: center; padding: 5px 10px; border: 1px solid black;}
@@ -25,13 +25,15 @@
   <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
-  <c:if test="${not empty loginErrorMsg}">
-		<script>
-			alert('${loginErrorMsg}');
-			history.back();
-		</script>
+  <c:if test="${not empty loginResult}">
+	<script>alert('${loginResult }');</script>
   </c:if>
-  
+  <c:if test="${not empty loginErrorMsg}">
+	<script>
+	  alert('${loginErrorMsg }');
+      history.back();
+    </script>
+  </c:if>
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <table>
@@ -39,9 +41,9 @@
     <tr>
       <c:forEach var="movie" items="${lastMovies }">
         <td>
-          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&$mId=${member.mId}"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
-          ${movie.mvTitle }(${movie.mvReleaseYear })<br>
-          좋아요 : ${movie.mlCnt }
+          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId}"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a>
+          <p>${movie.mvTitle }(${movie.mvReleaseYear })</p>
+          <p><img src="${conPath }/img/checkedLike.png" width="16px" height="16px">  ${movie.mlCnt }</p>
         </td>
       </c:forEach>
     </tr>
@@ -51,9 +53,9 @@
   	<tr>
       <c:forEach var="movie" items="${popularMovies }">
         <td>
-          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&$mId=${member.mId}"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
-          ${movie.mvTitle }(${movie.mvReleaseYear })<br>
-          좋아요 : ${movie.mlCnt }
+          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId}"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a>
+          <p>${movie.mvTitle }(${movie.mvReleaseYear })</p>
+          <p><img src="${conPath }/img/checkedLike.png" width="16px" height="16px">  ${movie.mlCnt }</p>
         </td>
       </c:forEach>
     </tr>

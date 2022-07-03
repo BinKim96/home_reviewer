@@ -2,6 +2,7 @@ package com.lec.home_reviewer.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -12,6 +13,8 @@ import javax.sql.DataSource;
 public class MovieLikeDao {
 	public static final int SUCCESS = 1; 
 	public static final int FAIL = 0; 
+	public static final int LIKE_CHECK =1;
+	public static final int LIKE_UNCHECK =0;
 	// 싱글톤
 	private static MovieLikeDao instance = new MovieLikeDao();
 	public static MovieLikeDao getInstance() {
@@ -80,5 +83,33 @@ public class MovieLikeDao {
 		}
 		return result;
 	}
-		
+	
+	// (3) 해당영화 좋아요 눌렀는지 안눌렀는지 여부
+	public int checkLike(String mId, int mvId) {
+		int result = LIKE_UNCHECK;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM MOVIE_LIKE WHERE mId=? AND mvId=?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setInt(2, mvId);
+			rs = pstmt.executeQuery();
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		return result;
+	}
 }

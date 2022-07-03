@@ -22,20 +22,17 @@
   <div id="content_form">
   <table>
   	<caption>${searchedMovies.mvTitle } 검색 결과</caption>
-  	<c:if test="${not empty admin }">
-  	  <input type="button" onclick='location.href="${conPath }/movieRegisterView.do"' value="영화등록하기">
-  	</c:if>
   	<tr>
   	  <c:set var="i" value="0"/>
       <c:forEach var="movie" items="${searchedMovies }">
-        
         <td>
           <a href="${conPath }/movieContent.do?mvId=${movie.mvId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a><br>
           ${movie.mvTitle }(${movie.mvReleaseYear })<br>
           좋아요 : ${movie.mlCnt }
         </td>
+        
         <c:if test="${i%3 == 2 and i!=8}">
-        	</tr><tr>
+        	<tr></tr>
         </c:if>
         <c:set var="i" value="${i+1 }"/>
       </c:forEach>
