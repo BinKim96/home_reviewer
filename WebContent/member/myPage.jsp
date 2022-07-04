@@ -21,9 +21,7 @@
   <jsp:include page="../main/header.jsp" />
   <div id="Form">
     <jsp:include page="../main/myPageMenu.jsp" />
-    <c:if test="${not empty profile }">
-      <jsp:include page="../member/myProfile.jsp" />
-    </c:if>
   </div>
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

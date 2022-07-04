@@ -39,7 +39,6 @@ public class MovieDto {
 
 
 	public MovieDto(int mvId, String mvTitle, String mvReleaseYear, String mvPoster) { // 관리자 영화목록
-		super();
 		this.mvId = mvId;
 		this.mvTitle = mvTitle;
 		this.mvReleaseYear = mvReleaseYear;
@@ -50,6 +49,14 @@ public class MovieDto {
 		this.mvId = mvId;
 		this.mvTitle = mvTitle;
 		this.mvReleaseDate = mvReleaseDate;
+		this.mvPoster = mvPoster;
+		this.mlCnt = mlCnt;
+	}
+	
+	public MovieDto(int mvId, String mvTitle, String mvReleaseYear, String mvPoster, int mlCnt, String mId) { // 찜목록
+		this.mvId = mvId;
+		this.mvTitle = mvTitle;
+		this.mvReleaseYear = mvReleaseYear;
 		this.mvPoster = mvPoster;
 		this.mlCnt = mlCnt;
 	}
@@ -187,10 +194,13 @@ public class MovieDto {
 	public void setgName(String gName) {
 		this.gName = gName;
 	}
+
 	@Override
 	public String toString() {
-		return "MovieDto [mvId=" + mvId + ", mvTitle=" + mvTitle + ", gId=" + gId + ", mvReleaseDate=" + mvReleaseDate
-				+ ", mvDirector=" + mvDirector + ", mvCast=" + mvCast + ", mvRunningTime=" + mvRunningTime + ", grId="
-				+ grId + ", mvPoster=" + mvPoster + ", mvContent=" + mvContent + ", mvRdate=" + mvRdate + "]";
+		return "MovieDto [mvId=" + mvId + ", mvTitle=" + mvTitle + ", gId=" + gId + ", gName=" + gName
+				+ ", mvReleaseYear=" + mvReleaseYear + ", mvReleaseDate=" + mvReleaseDate + ", mvDirector=" + mvDirector
+				+ ", mvCast=" + mvCast + ", mvRunningTime=" + mvRunningTime + ", grId=" + grId + ", grName=" + grName
+				+ ", mvPoster=" + mvPoster + ", mvContent=" + mvContent + ", mvRdate=" + mvRdate + ", mlCnt=" + mlCnt
+				+ "]";
 	}
 }

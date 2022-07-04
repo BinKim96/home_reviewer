@@ -21,16 +21,14 @@
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <table>
-  	<caption>${param.schmvTitle } 검색 결과</caption>
+  	<caption>회원 리스트</caption>
   	<tr>
   	  <c:set var="i" value="0"/>
-      <c:forEach var="movie" items="${searchedMovies }">
+      <c:forEach var="member" items="${memberList }">
         <td>
-          <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></a>
-          <p>${movie.mvTitle }(${movie.mvReleaseYear })</p>
-          <p><img src="${conPath }/img/checkedLike.png" class="like" width="20px" height="20px">${movie.mlCnt }</p>
+          <a href="${conPath }/myProfileView.do?mId=${member.mId }"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" alt="사진"></a>
+          <p>${member.mId }</p>
         </td>
-        
         <c:if test="${i%3 == 2 and i!=8}">
         	<tr></tr>
         </c:if>
@@ -39,21 +37,19 @@
     </tr>
   </table>
   <div class="paging">
-    <c:if test="${startPage>BLOCKSIZE }">
-      <a href="${conPath }/movieSearchList.do?pageNum=1">&lt;&lt;</a>
-      <a href="${conPath }/movieSearchList.do?pageNum=${startPage-1}">&lt;</a>
+    <c:if test="${startPage > BLOCKSIZE }">
+			[ <a href="${conPath }/memberList.do?pageNum=${startPage-1}"> 이전 </a> ]
 	</c:if>
 	<c:forEach var="i" begin="${startPage }" end="${endPage }">
 	  <c:if test="${i == pageNum }">
-		 [ <b>${i }</b> ]
+		<b> [ ${i } ] </b>
 	  </c:if>
 	  <c:if test="${i != pageNum }">
-		 [ <a href="${conPath }/movieSearchList.do?pageNum=${i}">${i }</a> ]
+		[ <a href="${conPath }/memberList.do?pageNum=${i}"> ${i } </a> ]
 	  </c:if>
 	</c:forEach>
-	<c:if test="${endPage < pageCnt }">
-	  <a href="${conPath }/movieSearchList.do?pageNum=${endPage+1}">&gt;</a>
-	  <a href="${conPath }/movieSearchList.do.do?pageNum=${pageCnt}">&gt;&gt;</a>
+    <c:if test="${endPage<pageCnt }">
+		[ <a href="${conPath }/memberList.do?pageNum=${endPage+1}"> 다음 </a> ]
 	</c:if>
   </div>
   </div>

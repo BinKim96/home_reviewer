@@ -36,6 +36,8 @@ SELECT * FROM MOVIE_LIKE;
     
 -- (3)좋아요 눌렀는지 아닌지 여부 확인
     SELECT COUNT(*) FROM MOVIE_LIKE WHERE mId='owen6113' AND mvId='3';
+    
     DELETE FROM MOVIE_LIKE WHERE mId='owen6113' AND mvId ='2';
-     
+    DELETE FROM MOVIE_LIKE WHERE mlNum='28';
+    DELETE FROM MOVIE_LIKE WHERE mId='owen6113' AND mvId ='2';
     COMMIT;

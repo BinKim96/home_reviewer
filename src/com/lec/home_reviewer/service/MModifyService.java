@@ -35,7 +35,7 @@ public class MModifyService implements Service {
 			String mEmail = mRequest.getParameter("mEmail");
 			// 정보수정시 사진파일을 첨부안하면 dbmPhoto(원래 사진파일)로
 			String dbmPhoto = mRequest.getParameter("dbmPhoto");
-			mPhoto = mPhoto==null ? dbmPhoto : mPhoto;
+			mPhoto = (mPhoto==null) ? dbmPhoto : mPhoto;
 			String mGender = mRequest.getParameter("mGender");
 			MemberDao mDao = MemberDao.getInstance();
 			// 회원정보수정
@@ -46,6 +46,7 @@ public class MModifyService implements Service {
 				session.setAttribute("member", member); // 로그인창에 띄울 아이디
 				request.setAttribute("modifyResult", "회원정보수정실패");
 				System.out.println("회원정보수정완료");
+				session.invalidate();
 			}else {
 				request.setAttribute("modifyErrorMsg", "회원정보수정실패");
 				System.out.println("회원정보수정실패");

@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lec.home_reviewer.dao.MovieDao;
+import com.lec.home_reviewer.dao.ReserveMovieDao;
 import com.lec.home_reviewer.dto.MovieDto;
 
-public class MvMovieSearchListService implements Service {
+public class MvReservedMoiveListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String pageNum = request.getParameter("pageNum");
-		String schmvTitle = request.getParameter("schmvTitle").trim();
-		if(pageNum==null) {
+		if(pageNum == null) {
 			if(request.getAttribute("pageNum")==null) { // 글 수정이나 답변글처리시 mRequest를 사용하여서 request에 set함
 				pageNum = "1";
 			}else {
@@ -26,14 +26,12 @@ public class MvMovieSearchListService implements Service {
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
 		
-		MovieDao mvDao = MovieDao.getInstance();
-		System.out.println(schmvTitle+"가 들어간거 찾는다");
-		ArrayList<MovieDto> searchedMovies = mvDao.searchMoive(schmvTitle, startRow, endRow);
-		System.out.println("결과 : "+searchedMovies);
-		request.setAttribute("searchedMovies", searchedMovies);
-		
-		int totCnt = mvDao.getSearchedMovieCnt(schmvTitle);
-		int pageCnt = (int)Math.ceil((double)totCnt/PAGESIZE);//페이지갯수
+		ReserveMovieDao rmDao = ReserveMovieDao.getInstance();
+		String mId = request.getParameter("mId");
+		ArrayList<MovieDto> reservedMovieList = rmDao.listReservedMovie(mId, startRow, endRow);
+		request.setAttribute("reservedMovieList", reservedMovieList);
+		int reservedmovieCnt = rmDao.getReservedMovieCnt(mId);
+		int pageCnt = (int)Math.ceil((double)reservedmovieCnt/PAGESIZE);
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE+1;
 		int endPage = startPage + BLOCKSIZE - 1;
 		if(endPage>pageCnt) {
@@ -43,7 +41,7 @@ public class MvMovieSearchListService implements Service {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("totCnt", totCnt); 
+		request.setAttribute("reservedmovieCnt", reservedmovieCnt); 
 		request.setAttribute("pageNum", currentPage);
 
 	}

@@ -117,13 +117,13 @@ public class ReserveMovieDao {
 		return result;
 	}
 	// (4) 찜한영화목록
-	public ArrayList<ReserveMovieDto> listReservedMovie(String mId, int startRow, int endRow) {
-		ArrayList<ReserveMovieDto> reservedMovies = new ArrayList<ReserveMovieDto>();
+	public ArrayList<MovieDto> listReservedMovie(String mId, int startRow, int endRow) {
+		ArrayList<MovieDto> reservedMovies = new ArrayList<MovieDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT *" + 
-				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT MV.mvTitle, MV.mvPoster, TO_CHAR(MV.mvReleaseDate, 'YYYY') mvReleaseYear FROM RESERVE_MOVIE RM, MOVIE MV WHERE RM.mvId=MV.mvId AND mId=? ORDER BY rmRdate DESC) A)" + 
+				"        FROM(SELECT ROWNUM RN, A.* FROM(SELECT MV.mvId, MV.mvTitle, MV.mvPoster, TO_CHAR(MV.mvReleaseDate, 'YYYY') mvReleaseYear, (SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=MV.mvId GROUP BY mvId) mlCnt FROM RESERVE_MOVIE RM, MOVIE MV WHERE RM.mvId=MV.mvId AND mId=? ORDER BY rmRdate DESC) A)" + 
 				"        WHERE RN BETWEEN ? AND ?";
 		try {
 			conn= getConnection();
@@ -133,10 +133,12 @@ public class ReserveMovieDao {
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int rmId = rs.getInt("rmId");
-				Date rmRdate = rs.getDate("mvRdate");
 				int mvId = rs.getInt("mvId");
-				reservedMovies.add(new ReserveMovieDto(rmId, rmRdate, mId, mvId));
+				String mvTitle = rs.getString("mvtitle");
+				String mvReleaseYear = rs.getString("mvReleaseYear");
+				String mvPoster = rs.getString("mvPoster");
+				int mlCnt = rs.getInt("mlCnt");
+				reservedMovies.add(new MovieDto(mvId, mvTitle, mvReleaseYear, mvPoster, mlCnt, mId));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()+"SQL문 오류임");

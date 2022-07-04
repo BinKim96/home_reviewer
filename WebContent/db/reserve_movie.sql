@@ -25,9 +25,11 @@ SELECT * FROM RESERVE_MOVIE;
     COMMIT;
     --(2) 영화 찜 취소하기
     DELETE FROM RESERVE_MOVIE WHERE mId='owen6113' AND mvId=1;
+    
+    DELETE FROM RESERVE_MOVIE WHERE rmId=15;
     --(3) 찜한 영화 목록
     SELECT *
-        FROM(SELECT ROWNUM RN, A.* FROM(SELECT MV.mvTitle, MV.mvPoster, TO_CHAR(MV.mvReleaseDate, 'YYYY') mvReleaseYear FROM RESERVE_MOVIE RM, MOVIE MV WHERE RM.mvId=MV.mvId AND mId='owen6113' ORDER BY rmRdate DESC) A)
+        FROM(SELECT ROWNUM RN, A.* FROM(SELECT MV.mvId, MV.mvTitle, MV.mvPoster, TO_CHAR(MV.mvReleaseDate, 'YYYY') mvReleaseYear, (SELECT COUNT(*) FROM MOVIE_LIKE WHERE mvId=MV.mvId GROUP BY mvId) mlCnt, RM.mId FROM RESERVE_MOVIE RM, MOVIE MV WHERE RM.mvId=MV.mvId AND mId='owen6113' ORDER BY rmRdate DESC) A)
         WHERE RN BETWEEN 1 AND 5;
     --(4) 사용자 찜한 영화 갯수
-    SELECT COUNT(*) FROM RESERVE_MOVIE WHERE mId='pdk91';
+    SELECT COUNT(*) FROM RESERVE_MOVIE WHERE mId='owen6113' AND mvId=1;

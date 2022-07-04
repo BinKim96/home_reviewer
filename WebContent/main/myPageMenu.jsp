@@ -38,18 +38,20 @@
   <%-- <link href="${conPath }/css/style.css" rel="stylesheet"> --%>
 </head>
 <body>
+  <jsp:include page="../main/header.jsp"/>
   <div id="navigation">
     <ul class="menu">
       <li>
-      	<a href="${conPath }/myPageView.do">프로필</a>
+      	<a href="${conPath }/myProfileView.do">프로필</a>
       </li>
       <li>
-      	<a href="${conPath}/modifyView.do?mId=${member.mId }">회원정보수정</a>
+      	<a href="${conPath}/memberModifyView.do?mId=${member.mId }">회원정보수정</a>
       </li>
       <li>
-      	<a href="#">찜한영화목록</a>
+      	<a href="${conPath }/reservedMoiveList.do?mId=${member.mId }">찜한영화목록</a>
       </li>
     </ul>
   </div>
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

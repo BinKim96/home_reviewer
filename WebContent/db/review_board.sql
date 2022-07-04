@@ -5,7 +5,7 @@ CREATE SEQUENCE REVIEW_BOARD_SEQ MAXVALUE 9999999 NOCACHE NOCYCLE;
 CREATE TABLE REVIEW_BOARD(
     rbNum NUMBER(7) PRIMARY KEY,
     rbContent VARCHAR2(1000) NOT NULL,
-    rbRdate DATE DEFAULT SYSDATE,
+    rbRdate DATE DEFAULT SYSDATE NOT NULL,
     rbIp VARCHAR2(20) NOT NULL,
     mId VARCHAR2(50) REFERENCES MEMBER(mId),
     mvId NUMBER(7) REFERENCES MOVIE(mvId)
@@ -27,8 +27,7 @@ CREATE TABLE REVIEW_BOARD(
         FROM(SELECT ROWNUM RN, A.* FROM(SELECT rbNum, mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=1 ORDER BY rbRdate DESC) A)
         WHERE RN BETWEEN 1 AND 3;
     --(3)리뷰수정(사용자)
-    UPDATE REVIEW_BOARD SET rbContent='어이가 없네!',
-                            rbRdate=SYSDATE,
+    UPDATE REVIEW_BOARD SET rbContent='죄짓지말고 살랬지',
                             rbIp='192.168.10.30'                              
                     WHERE rbNum=3 AND mvId=1 AND mId='odj5555';
     --(4)리뷰삭제(사용자, 관리자)

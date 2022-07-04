@@ -61,11 +61,13 @@
   		border: 1px solid black;
   	}
   	#header_info .logo {
-  		margin:10px 30px 10px 30px; 
-  		height: 100px;
+  		margin:0 30px 10px 30px;
+  		width: 130px; 
+  		height: 130px;
   		line-height: 100px;
   		float:left;
-  		border: 1px solid black;
+  		/* border: 1px solid red; */
+  		
   	}
   	#header_info .search {
   		float:left;
@@ -94,21 +96,24 @@
 		border: 1px solid black;
 	}
 	#header_info .service ul {
-		width: 300px;
+		width: 400px;
 		heigt: 50px;
 		line-height: 50px;
+		
 		
 	}
 	#header_info .service ul li{
 		float:left;
 		margin:25px 15px 0 0;
 		border: 1px solid red;
+		
 	}
   	#header_info .service ul li a{
     	color: black; 
     	font-weight: bold;
     	display: block;
     	padding:5px 10px;
+    	background-color: orange;
 	}
   	
   	
@@ -133,7 +138,7 @@
         <div class="gnb">
           <ul>
             <li><a href="${conPath }/logout.do">LOG OUT</a></li>
-            <li><a href="${conPath }/myPageView.do?profile">${member.mId }님</a></li>
+            <li><a href="${conPath }/myPageView.do">${member.mId }님</a></li>
             <li><a href="${conPath }/main.do">HOME</a></li>
           </ul>
         </div>
@@ -144,7 +149,7 @@
         <div class="gnb">
           <ul>
             <li><a href="${conPath }/logout.do">LOG OUT</a></li>
-            <li><a href="${conPath }/myPageView.do">${admin.aId }님</a></li>
+            <li><a href="#">${admin.aId }님</a></li>
             <li><a href="${conPath }/main.do">HOME</a></li>
           </ul>
         </div>
@@ -152,11 +157,11 @@
      </c:if>
       <div id="header_info">
         <div class="logo">
-        <a href="${conPath }/main.do">HOME_REVIEWR</a>
+        <a href="${conPath }/main.do"><img src="${conPath }/img/logo.png" alt="로고" width="130" height="130"></a>
         </div>
         <div class="search">
           <form action="${conPath }/movieSearchList.do" method="get">
-            <input type="text" name="mvTitle" placeholder="Search movies..." >
+            <input type="text" name="schmvTitle" placeholder="Search movies..."  value="${param.schmvTitle }">
             <input type="submit" value="SEARCH">
           </form>
         </div>
@@ -164,6 +169,9 @@
           <ul>
             <li><a href="${conPath }/movieList.do">MOVIE</a></li>
             <li><a href="${conPath }/boardList.do">FREE BOARD</a></li>
+            <c:if test="${empty member and not empty admin}">
+            <li><a href="${conPath }/memberList.do">MEMBER</a></li>
+            </c:if>
           </ul>
         </div>
       </div>

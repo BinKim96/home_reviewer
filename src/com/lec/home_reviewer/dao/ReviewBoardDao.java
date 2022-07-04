@@ -135,7 +135,6 @@ public class ReviewBoardDao {
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
 		String sql = "UPDATE REVIEW_BOARD SET rbContent=?," + 
-				"                            rbRdate=SYSDATE," + 
 				"                            rbIp=?" + 
 				"                    WHERE rbNum=? AND mvId=? AND mId=?";
 		try {
@@ -174,7 +173,7 @@ public class ReviewBoardDao {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String rbContent = rs.getString("rbContent");
-				Date rbRdate = rs.getDate("rbRdat");
+				Date rbRdate = rs.getDate("rbRdate");
 				String rbIp = rs.getString("rbIp");
 				String mId = rs.getString("mId");
 				int mvId = rs.getInt("mvId");

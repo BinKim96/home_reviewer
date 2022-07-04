@@ -15,29 +15,60 @@
 	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/member/profile.css" rel="stylesheet">
 </head>
 <body>
-  <table>
-			<caption>${member.mId }님 프로필</caption>
-			<tr><th>아이디</th>
-					<td><input type="text" value="${member.mId }" readonly="readonly"></td>
-					<td rowspan="4"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" width="100"></td>
-			</tr>
-			<tr><th>비밀번호</th>
-					<td><input type="text" value="${member.mPw }" readonly="readonly"></td>
-			</tr>
-			<tr><th>이름</th>
-					<td><input type="text" value="${member.mName }" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td><input type="email" name="mEmail" value="${member.mEmail }" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<th>가입일</th>
-				<td><input type="text" value="${member.mRdate }"></td>
-			</tr>
-		</table>
+  <jsp:include page="../main/header.jsp"/>
+  <div id="border">
+    <table>
+      <caption class="profile">${member.mId }님 프로필</caption>
+      
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+		<td>아이디 <b>*</b></td>
+		<td rowspan="8"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" alt="사진" width="200" height="260"></td>
+	  </tr>
+      <tr>
+		<td>
+		  <input type="text" value="${member.mId }" readonly="readonly">
+		</td>
+	  </tr>
+				
+	  <tr>
+		<td>비밀번호 <b>*</b></td>
+	  </tr>
+	  <tr>
+		<td>
+		  <c:if test="${not empty member and empty admin }">
+		    <input type="text" value="${member.mPw }" readonly="readonly">
+		  </c:if>
+		  <c:if test="${not empty admin }">
+		    <input type="text" value="관리자는 볼 수 없음" readonly="readonly">
+		  </c:if>
+		</td>
+		</tr>
+				
+		<tr>
+		  <td>이름 <b>*</b></td>
+		</tr>
+		<tr>
+		  <td>
+		    <input type="text" value="${member.mName }" readonly="readonly">
+		  </td>
+		</tr>
+				
+		<tr>
+		  <td>이메일 <b>*</b></td>
+		</tr>
+		<tr>
+		  <td>
+		    <input type="text" value="${member.mEmail }" readonly="readonly">
+		  </td>
+		</tr>
+    </table>
+  </div>
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

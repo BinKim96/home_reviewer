@@ -55,6 +55,19 @@
   <c:if test="${not empty reviewWriteError}">
 	<script>alert('${reviewWriteError }');</script>
   </c:if>
+  <c:if test="${not empty reviewBoardMoifyResult}">
+	<script>alert('${reviewBoardMoifyResult }');</script>
+  </c:if>
+  <c:if test="${not empty reviewBoardMoifyErrorMsg}">
+	<script>alert('${reviewBoardMoifyErrorMsg }');</script>
+  </c:if>
+  <c:if test="${not empty reviewBoardDeleteResult}">
+	<script>alert('${reviewBoardDeleteResult }');</script>
+  </c:if>
+  <c:if test="${not empty reviewBoardDeleteErrorMsg}">
+	<script>alert('${reviewBoardDeleteErrorMsg }');</script>
+  </c:if>
+  
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
   <table>
@@ -107,10 +120,13 @@
   	</tr>
   	<c:if test="${not empty admin }">
   	<tr>
-  	  <td colspan="2">
-  	    <input type="button" value="수정" class="btn" onclick="location.href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'">
-  	    <input type="button" value="삭제" class="btn" onclick="location.href='${conPath}/movieDelete.do?mvId=${movie.mvId }'">
+  	  <td>
+  	    <a href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a>
+  	    <a href='${conPath}/movieDelete.do?mvId=${movie.mvId }'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a>
+  	    <%-- <input type="button" value="수정" class="btn" onclick="location.href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'">
+  	    <input type="button" value="삭제" class="btn" onclick="location.href='${conPath}/movieDelete.do?mvId=${movie.mvId }'">  --%>
   	  </td>
+  	  <td colspan="2"></td>
   	</tr>
   	</c:if>
   </table>
@@ -134,13 +150,13 @@
 		  <td>${review.mId }</td>
 		  <td><fmt:formatDate value="${review.rbRdate }" type="date" dateStyle="short"/></td>
 		  <c:if test="${(not empty member and empty admin) and (member.mId eq review.mId) }">
-		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
+		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
 		  </c:if>
 		  <%-- <c:if test="${member.mId eq review.mId }">
 		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&mvId=${review.mvId}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
 		  </c:if> --%>
 		  <c:if test="${(empty member and not empty admin) or (member.mId eq review.mId)}">
-		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
+		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}&pageNum=${pageNum}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
 		  </c:if>
 		  <%-- <c:if test="${member.mId eq review.mId }">
 		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
@@ -186,5 +202,6 @@
     </form>
   </c:if>
   </div>
+  <jsp:include page="../main/footer.jsp"/>s
 </body>
 </html>

@@ -10,12 +10,12 @@
   <title>Insert title here</title>
   <style>
     #content_form {
-		width: 1200px; height:600px;
-		margin: 100px auto 0px;
+		width: 800px; height:370px;
+		margin: 130px auto 0px;
 	}
-	tr th:nth-child(2), tr th:nth-child(2) {
-	 width : 200px;
-    }
+	table {
+		margin: 0 auto;
+	}
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -26,22 +26,27 @@
   <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
+  <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
-  <form action="${conPath }/reviewModify.do" method="post">
-      <input type="hidden" name="pageNum" value="${param.pageNum}">
-      <input type="hidden" name="mvId" value="${param.mvId }">
-      <input type="hidden" name="mId" value="${param.mId }">
-      <input type="hidden" name="rbNum" value="${param.rbNum }">
-      
+    <form action="${conPath }/adminLogin.do" method="post">
       <table>
-	      <tr>
-	        <td>
-	          <textarea rows="2" cols="120" name="rbContent">${reviewBoard.rbContent }</textarea>
-	          <input type="submit" value="댓글수정">
-	        </td>
-	      </tr>
+        <caption>관리자 로그인</caption>
+        <tr>
+          <th>아이디</th>
+          <td><input type="text" name="aId" required="required"></td>
+        </tr>
+        <tr>
+          <th>패스워드</th>
+          <td><input type="password" name="aPw" required="required"></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" value="로그인" class="btn">
+          </td>
+        </tr>
       </table>
     </form>
-    </div>
+  </div>
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

@@ -13,9 +13,9 @@ public class RbReviewBoardDeleteService implements Service {
 		ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
 		int result = rbDao.deleteReviewBoard(rbNum);
 		if(result == ReviewBoardDao.SUCCESS) {
-			request.setAttribute("boardDeleteResult", "댓글삭제 성공");
+			request.setAttribute("reviewBoardDeleteResult", "댓글삭제 성공");
 		}else {
-			request.setAttribute("boardDeleteResult", "댓글삭제 실패");
+			request.setAttribute("reviewBoardDeleteErrorMsg", "댓글삭제 실패");
 		}
 	}
 }

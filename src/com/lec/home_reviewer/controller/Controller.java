@@ -21,6 +21,7 @@ import com.lec.home_reviewer.service.BoardWriteService;
 import com.lec.home_reviewer.service.LogoutService;
 import com.lec.home_reviewer.service.MJoinService;
 import com.lec.home_reviewer.service.MLoginService;
+import com.lec.home_reviewer.service.MMemberListService;
 import com.lec.home_reviewer.service.MModifyService;
 import com.lec.home_reviewer.service.MModifyViewService;
 import com.lec.home_reviewer.service.MemailConfirmService;
@@ -31,6 +32,7 @@ import com.lec.home_reviewer.service.MvMovieRegisterService;
 import com.lec.home_reviewer.service.MvMovieReserveDeleteService;
 import com.lec.home_reviewer.service.MvMovieReserveInsertService;
 import com.lec.home_reviewer.service.MvMovieSearchListService;
+import com.lec.home_reviewer.service.MvReservedMoiveListService;
 import com.lec.home_reviewer.service.MvMainMovieListService;
 import com.lec.home_reviewer.service.MvMovieCountLikeService;
 import com.lec.home_reviewer.service.MvMovieCountReserveService;
@@ -46,6 +48,7 @@ import com.lec.home_reviewer.service.RbReviewBoardModifyService;
 import com.lec.home_reviewer.service.RbReviewBoardModifyViewService;
 import com.lec.home_reviewer.service.RbReviewBoardWriteService;
 import com.lec.home_reviewer.service.Service;
+import com.lec.home_reviewer.service.MMyProfileViewService;
 
 /**
  * Servlet implementation class Controller
@@ -112,18 +115,29 @@ public class Controller extends HttpServlet {
 			viewPage = "member/myPage.jsp";
 			
 		}else if(com.equals("/myProfileView.do")) {
+			service = new MMyProfileViewService();
+			service.execute(request, response);
 			viewPage = "member/myProfile.jsp";
 			
-		}else if(com.equals("/modifyView.do")) {
+		}else if(com.equals("/memberModifyView.do")) {
+			service = new MModifyViewService();
+			service.execute(request, response);
 			viewPage = "member/modify.jsp";
 			
 		}else if(com.equals("/memberModify.do")) {
 			service = new MModifyService();
 			service.execute(request, response);
 			viewPage = "loginView.do";
+			
+		}else if(com.equals("/memberList.do")) {
+			service = new MMemberListService();
+			service.execute(request, response);
+			viewPage = "member/memberList.jsp";
 		/**************************************
-		************ member 관련 요청 ************
+		************ admin 관련 요청 ************
 		***************************************/
+		}else if(com.equals("/adminLoginView.do")) {
+			viewPage = "admin/adminLogin.jsp";
 		}else if(com.equals("/adminLogin.do")) { // 관리자 로그인 실행
 			service = new ALoginService();
 			service.execute(request, response);
@@ -240,6 +254,12 @@ public class Controller extends HttpServlet {
 			service = new MvMovieReserveDeleteService();
 			service.execute(request, response);
 			viewPage = "movieContent.do";
+			
+		}else if(com.equals("/reservedMoiveList.do")) {
+			service = new MvReservedMoiveListService();
+			service.execute(request, response);
+			viewPage = "movie/reservedMoiveList.jsp";
+			
 		/**************************************
 		************ reviewboard 관련 요청 ************
 		***************************************/
