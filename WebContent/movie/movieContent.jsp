@@ -9,13 +9,18 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <style>
+    #main_wrap {
+    	width: 100%;
+    	height: 1200px;
+    }
     #content_form {
 		width: 1200px; height:600px;
 		margin: 100px auto 0px;
 	}
 	tr th:nth-child(2), tr th:nth-child(2) {
 	 width : 200px;
-}
+	}
+	
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -42,11 +47,11 @@
 			  location.href='${conPath}/movieReserveDelete.do?mId='+'${member.mId}&mvId='+'${movie.mvId}';
 		  }
 	  });
-	  
-	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+
+
+  <link href="${conPath }/css/movie/movieContent.css" rel="stylesheet">
 </head>
 <body>
   <c:if test="${not empty reviewWriteResult}">
@@ -69,6 +74,8 @@
   </c:if>
   
   <jsp:include page="../main/header.jsp"/>
+  <div id ="main_wrap">
+  
   <div id="content_form">
   <table>
     <tr>
@@ -130,7 +137,102 @@
   	</tr>
   	</c:if>
   </table>
-  <table>
+  
+  
+  <div class="board_list_wrap">
+    <c:if test="${empty member }">
+      <div>
+        <table>
+        <tr>
+          <td><a href="${conPath }/loginView.do">리뷰 작성은  로그인 이후에만 가능합니다</a></td>
+        </tr>
+      </table>
+      </div>
+    </c:if>
+    <c:if test="${not empty member or not empty admin}">
+  	  <div>
+        <table>
+        <tr>
+          <td></td>
+        </tr>
+      </table>
+      </div>
+    </c:if>
+    
+    <table class ="board_list">
+      <caption>REVIEW 게시판</caption>
+      <thead>
+        <tr>
+          <th>REVIEW</th>
+          <th>글쓴이</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+      <c:if test="${not empty member and empty admin }">
+        <c:if test="${reviewList.size() eq 0 }">
+          <tr>
+		    <td colspan="3">등록된 후기가 없습니다 첫 후기를 남겨주세요!</td>
+	      </tr>
+        </c:if>
+      </c:if>
+      <c:if test="${reviewList.size() != 0 }">
+        <c:forEach var="review" items="${reviewList }" >
+          <tr>
+		  	<td class="tit">${review.rbContent }</td>
+		  	<td>${review.mId }</td>
+		  	<td><fmt:formatDate value="${review.rbRdate }" type="date" dateStyle="short"/></td>
+		  <c:if test="${(not empty member and empty admin) and (member.mId eq review.mId) }">
+		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
+		  </c:if>
+		  <c:if test="${(empty member and not empty admin) or (member.mId eq review.mId)}">
+		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}&pageNum=${pageNum}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
+		  </c:if>
+		  </tr>
+        </c:forEach>
+      </c:if>
+      </tbody>
+    </table>
+    
+    <div class="paging">
+  
+      <c:if test="${startPage > BLOCKSIZE }">
+	    <a href="${conPath }/movieContent.do?pageNum=${startPage-1}&mId=${member.mId }&mvId=${movie.mvId }" class="btn"> 이전 </a>
+	  </c:if>
+	  <c:forEach var="i" begin="${startPage }" end="${endPage }">
+	    <c:if test="${i == pageNum }">
+		  <a class="num">${i } </a>
+	    </c:if>
+	  <c:if test="${i != pageNum }">
+		<a href="${conPath }/movieContent.do?pageNum=${i}&mId=${member.mId }&mvId=${movie.mvId }" class="num"> ${i } </a> ]
+	  </c:if>
+	</c:forEach>
+	
+    <c:if test="${endPage<pageCnt }">
+		<a href="${conPath }/movieContent.do?pageNum=${endPage+1}&mId=${member.mId }&mvId=${movie.mvId }" class="btn"> 다음 </a> ]
+	</c:if>
+	
+    </div>
+  <c:if test="${not empty member and empty admin }">
+    <form action="${conPath }/reviewBoardWrite.do" >
+      <input type="hidden" name="mvId" value="${movie.mvId }">
+      <input type="hidden" name="mId" value="${member.mId }">
+      <table class="write_form">
+        <caption>한줄평 남기기</caption>
+        <c:if test="${not empty member }">
+	      <tr>
+	        <td>
+	          <textarea rows="2" cols="120" name="rbContent"></textarea>
+	          <input type="submit" value="댓글달기">
+	        </td>
+	      </tr>
+        </c:if>
+      </table>
+    </form>
+  </c:if>
+  
+  </div> <!-- board_list_wrap -->
+  <%-- <table>
 	<tr>
 	  <th>한줄평</th>
 	  <th>작성자아이디</th>
@@ -152,56 +254,24 @@
 		  <c:if test="${(not empty member and empty admin) and (member.mId eq review.mId) }">
 		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
 		  </c:if>
-		  <%-- <c:if test="${member.mId eq review.mId }">
+		  <c:if test="${member.mId eq review.mId }">
 		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&mvId=${review.mvId}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
-		  </c:if> --%>
+		  </c:if>
 		  <c:if test="${(empty member and not empty admin) or (member.mId eq review.mId)}">
 		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}&pageNum=${pageNum}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
 		  </c:if>
-		  <%-- <c:if test="${member.mId eq review.mId }">
+		  <c:if test="${member.mId eq review.mId }">
 		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
-		  </c:if> --%>
+		  </c:if>
 		</tr>
 	  </c:forEach>
 	</c:if>
-  </table>
+  </table> --%>
   
-  <div class="paging">
-    <c:if test="${startPage > BLOCKSIZE }">
-			[ <a href="${conPath }/movieContent.do?pageNum=${startPage-1}&mId=${member.mId }&mvId=${movie.mvId }"> 이전 </a> ]
-	</c:if>
-	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-	  <c:if test="${i == pageNum }">
-		<b> [ ${i } ] </b>
-	  </c:if>
-	  <c:if test="${i != pageNum }">
-		[ <a href="${conPath }/movieContent.do?pageNum=${i}&mId=${member.mId }&mvId=${movie.mvId }"> ${i } </a> ]
-	  </c:if>
-	</c:forEach>
-    <c:if test="${endPage<pageCnt }">
-		[ <a href="${conPath }/movieContent.do?pageNum=${endPage+1}&mId=${member.mId }&mvId=${movie.mvId }"> 다음 </a> ]
-	</c:if>
+  
   </div>
   
-  <c:if test="${not empty member and empty admin }">
-    <form action="${conPath }/reviewBoardWrite.do">
-      <input type="hidden" name="mvId" value="${movie.mvId }">
-      <input type="hidden" name="mId" value="${member.mId }">
-      <table>
-        <caption>한줄평 남기기</caption>
-        <c:if test="${not empty member }">
-	      <tr>
-	        <td>
-	          <textarea rows="2" cols="120" name="rbContent"></textarea>
-	          <input type="submit" value="댓글달기">
-	        </td>
-	      </tr>
-        </c:if>
-        <c:if test="${empty member }"><tr><td><a href="${conPath }/loginView.do">리뷰 작성은  로그인 이후에만 가능합니다</a></td></tr></c:if>
-      </table>
-    </form>
-  </c:if>
   </div>
-  <jsp:include page="../main/footer.jsp"/>s
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

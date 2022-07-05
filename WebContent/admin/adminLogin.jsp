@@ -8,44 +8,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <style>
-    #content_form {
-		width: 800px; height:370px;
-		margin: 130px auto 0px;
-	}
-	table {
-		margin: 0 auto;
-	}
-  </style>
+  <style></style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function(){
 	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/member/login.css" rel="stylesheet">
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
-  <div id="content_form">
+  <div id ="main_wrap">
     <form action="${conPath }/adminLogin.do" method="post">
-      <table>
-        <caption>관리자 로그인</caption>
-        <tr>
-          <th>아이디</th>
-          <td><input type="text" name="aId" required="required"></td>
-        </tr>
-        <tr>
-          <th>패스워드</th>
-          <td><input type="password" name="aPw" required="required"></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <input type="submit" value="로그인" class="btn">
-          </td>
-        </tr>
-      </table>
-    </form>
+    <div class="Login_Form">
+      <h1>관리자 로그인</h1>
+      <div class="txtb">
+        <input type="text" name="aId" value="${mId }" required="required">
+        <span data-placeholder='Adminname'></span>
+	  </div>
+	  <div class="txtb">
+	    <input type="password" name="aPw" required="required">
+	    <span data-placeholder='Password'></span>
+	  </div>
+	  <input type="submit" value="로그인" class="loginbt">
+    </div>
+  </form>
   </div>
   <jsp:include page="../main/footer.jsp"/>
 </body>

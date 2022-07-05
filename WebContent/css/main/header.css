@@ -1,0 +1,141 @@
+@charset "UTF-8";
+/* * * * * * 페이지 초기화 * * * * * */
+* {
+  	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+    color: inherit;
+}
+
+ul, li {
+	list-style: none;	
+}
+
+header {
+	border-bottom: 1px solid #ddd; 
+	background-color : orange;
+}
+
+header #header_info {
+	width: 100%;
+	height: 60px;
+	margin: 0 auto;	
+}
+
+header .gnb {
+	float: right;
+}
+
+header .gnb li {
+	display: inline-block;
+	margin-top: 23px;
+	margin-left: 30px;
+}
+
+header .gnb li:last-child {
+	margin-right: 50px;
+}
+
+header #header_service{
+	width: 100%;
+	height: 120px;
+	margin: 0 auto;
+	/* background-image: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9)), url(img/background.jpg);
+	background-position: center;
+	background-size: cover; */
+	
+/* 	display: inline-flex; */
+/* 	align-items: center; */
+	/*justify-content: center;*/
+}
+
+header .logo {
+	float: left;
+}
+
+header .logo img {
+	margin-left: 60px;
+	
+}
+
+header .search {
+	width: 500px;
+	height: 70px;
+	/* width: 100%;
+	min-height: 100vh;
+	padding: 5%; */	
+	float:left;
+	margin-left: 100px;
+	margin-top: 38px;
+}
+
+header .search_bar {
+	width: 100%;
+	max-width: 400px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.2);
+	display: flex;
+	align-items: center;
+	border-radius: 60px;
+	padding: 10px 20px;
+	backdrop-filter: blur(4px) saturate(180%); 
+}
+
+header .search_bar input {
+	background: transparent;
+	width: 400px;
+	height: 5px;
+	flex: 30;
+	border: 0;
+	outline: none;
+	padding: 24px 20px;
+	font-size: 20px;
+	color: #eee;	
+}
+
+::placeholder {
+	color: #eee;
+}
+
+.search_bar button img {
+	width: 25px;
+	height: 25px;	
+}
+
+.search_bar button {
+	border: 0;
+	border-radius: 50%;
+	width: 55px;
+	height: 55px;
+	margin-left: 5px;
+	padding: 5px;
+	background: white;
+	cursor: pointer;
+}
+
+header .lnb {
+	float: right;
+	width: 340px;
+	margin-right: 50px;
+	margin-top: 18px;
+}
+
+header .lnb li {
+	display: inline-block;
+	margin-top: 28px;
+	margin-left: 30px;
+	font-size:1.5em;
+	font-weight: bold;
+}
+
+header .lnb li:first-child {
+	margin-left: 0;
+}
+
+header .lnb li:last-child {
+	margin-right: 0px;
+}
+  	

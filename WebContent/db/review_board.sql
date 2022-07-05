@@ -27,9 +27,9 @@ CREATE TABLE REVIEW_BOARD(
         FROM(SELECT ROWNUM RN, A.* FROM(SELECT rbNum, mId, rbContent, rbRdate, rbIp FROM REVIEW_BOARD WHERE mvId=1 ORDER BY rbRdate DESC) A)
         WHERE RN BETWEEN 1 AND 3;
     --(3)리뷰수정(사용자)
-    UPDATE REVIEW_BOARD SET rbContent='죄짓지말고 살랬지',
+    UPDATE REVIEW_BOARD SET rbContent='장첸이랑 같이 나오면 재밌을 듯 ㅋㅋ',
                             rbIp='192.168.10.30'                              
-                    WHERE rbNum=3 AND mvId=1 AND mId='odj5555';
+                    WHERE rbNum=2 AND mvId=1 AND mId='odj5555';
     --(4)리뷰삭제(사용자, 관리자)
     DELETE FROM REVIEW_BOARD WHERE rbNum=1;
     ROLLBACK;
@@ -44,7 +44,7 @@ CREATE TABLE REVIEW_BOARD(
     -- (7)자신이 작성한 댓글 갯수
     SELECT COUNT(*) FROM REVIEW_BOARD WHERE mId='odj5555';
     -- (8)rbNum으로 dto 가져오기
-    SELECT * FROM REVIEW_BOARD WHERE rbNum='3';
+    SELECT * FROM REVIEW_BOARD WHERE rbNum='2';
 -- REVIEW_BOARD_DUMMY
 SELECT * FROM REVIEW_BOARD;
 COMMIT;

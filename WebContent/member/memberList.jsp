@@ -8,7 +8,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <style></style>
+  <style>
+    #main_wrap {
+    	height: 800px;
+    }
+  </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function(){
@@ -19,6 +23,7 @@
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
+  <div id="main_wrap">
   <div id="content_form">
   <table>
   	<caption>회원 리스트</caption>
@@ -51,6 +56,7 @@
     <c:if test="${endPage<pageCnt }">
 		[ <a href="${conPath }/memberList.do?pageNum=${endPage+1}"> 다음 </a> ]
 	</c:if>
+  </div>
   </div>
   </div>
   <jsp:include page="../main/footer.jsp"/>

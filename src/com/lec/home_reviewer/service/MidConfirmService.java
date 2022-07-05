@@ -14,7 +14,7 @@ public class MidConfirmService implements Service {
 		// ID 중복체크
 		int result = mDao.mIdConfirm(mId);
 		if(result == MemberDao.NONEXISTENT) {
-			request.setAttribute("idConfirmResult", "<b>사용 가능한 아이디</b>");
+			request.setAttribute("idConfirmResult", "사용 가능한 아이디");
 		}else {
 			request.setAttribute("idConfirmResult", "<b>중복된 아이디</b>");
 		}

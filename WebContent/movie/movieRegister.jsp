@@ -10,6 +10,9 @@
   <title>Insert title here</title>
   <link href="${conPath }/css/style.css" rel="stylesheet">
   <style>
+    #main_wrap {
+      height: 600px;
+    }
     #content_form {
 		width: 800px; height:480px; 
 		margin: 20px auto 0px;
@@ -45,6 +48,7 @@
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
+  <div id="main_wrap">
   <div id="content_form">
     <form action="${conPath }/movieRegister.do" method="post" enctype="multipart/form-data">
       <table>
@@ -99,12 +103,13 @@
         </tr>
         <tr>
           <td colspan="2">
-			<input type="submit" value="영화등록" class="btn">
-			<input type="button" value="영화목록" class="btn" onclick="location.href='${conPath}/movieList.do'">
+			<input type="submit" value="등록" class="btn">
+			<input type="button" value="목록" class="btn" onclick="location.href='${conPath}/movieList.do'">
 		  </td>
 		</tr>  
       </table>
     </form>
+  </div>
   </div>
   <jsp:include page="../main/footer.jsp"/>
 </body>

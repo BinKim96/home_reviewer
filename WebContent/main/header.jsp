@@ -8,127 +8,66 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <style>
-  	/* * * * * * 페이지 초기화 * * * * * */
-  	* {
-  		padding: 0;
-  		margin: 0;
-  	}
-  	a {
-  		text-decoration: none;
-  		color: black;
-  	}
-  	li {
-  		list-style: none;
-  	}
-  	/* * * * * * #header_nav * * * * * */
-  	#header_nav {
-  		width: 100%;
-  		height: 50px;
-  		background-color: green;
-  		overflow: hidden;
-  	}
-  	#header_nav a {
-  		color: white;
-  		font-weight: bold;
-  		display: block;
-  	}
-  	#header_nav .gnb {
-  		background-color: red;
-  		float: right;
-  	}
-  	#header_nav .gnb ul {
-  		width: 250px;
-  		height: 50px;
-  		line-height: 50px;
-  		margin-right: 20px;
-  		border: 1px solid black;
-  	}
-  	#header_nav .gnb ul li {
-  		float: right;
-  		width: 80px;
-  		text-align: center;
-  		border: 1px solid blue;
-  	}
-  	
-  	
-  	
-  	#header_info {
-  		width:100%; 
-  		height: 120px;
-  		margin:0 auto; 
-  		overflow:hidden;
-  		border: 1px solid black;
-  	}
-  	#header_info .logo {
-  		margin:0 30px 10px 30px;
-  		width: 130px; 
-  		height: 130px;
-  		line-height: 100px;
-  		float:left;
-  		/* border: 1px solid red; */
-  		
-  	}
-  	#header_info .search {
-  		float:left;
-  	}
-  	#header_info .search input[type='text']{
-    	width:400px;
-    	height: 40px; 
-    	font-size:30px;
-    	border: 1px solid black;
-    	margin-top: 40px;
-    	padding:5px;
-    	outline:0;
-	}
-	#header_info .search input[type='submit'] {
-    	width: 120px;    
-    	height: 50px;
-    	border:0;
-    	outline: none;
-    	color: black;
-    	cursor:pointer;
-	}
-	#header_info .service{
-		width: 400px;
-		float:right;
-		height: 100px;
-		border: 1px solid black;
-	}
-	#header_info .service ul {
-		width: 400px;
-		heigt: 50px;
-		line-height: 50px;
-		
-		
-	}
-	#header_info .service ul li{
-		float:left;
-		margin:25px 15px 0 0;
-		border: 1px solid red;
-		
-	}
-  	#header_info .service ul li a{
-    	color: black; 
-    	font-weight: bold;
-    	display: block;
-    	padding:5px 10px;
-    	background-color: orange;
-	}
-  	
-  	
-  </style>
-<link href="${conPath }/css/style.css" rel="stylesheet">
+  <style></style>
+<link href="${conPath }/css/main/header.css" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <div id="wrap">
+    <header>
+      <div id="header_info">
+    	<c:if test="${empty member and empty admin}">
+      	  <ul class="gnb">
+      	    <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
+        	<li><a href="${conPath }/joinView.do"><img src="${conPath }/img/link.png" class="link" width="35px" height="35px"></a></li>
+        	<li><a href="${conPath }/loginView.do"><img src="${conPath }/img/login.png" class="enter" width="35px" height="35px"></a></li>
+      	  </ul>
+    	</c:if>
+    	<c:if test="${not empty member and empty admin}">
+    	  <ul class="gnb">
+    	    <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
+    	    <li><a href="${conPath }/myPageView.do"><img src="${conPath }/img/user.png" class="user" width="35px" height="35px"></a></li>
+    	    <li><a href="${conPath }/logout.do"><img src="${conPath }/img/logout.png" class="exit" width="35px" height="35px"></a></li>
+    	  </ul>
+    	</c:if> 
+    	<c:if test="${empty member and not empty admin}">
+    	  <ul class="gnb">
+            <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
+            <li><a href="#"><img src="${conPath }/img/admin.png" class="admin" width="35px" height="35px"></a></li>
+    	    <li><a href="${conPath }/logout.do"><img src="${conPath }/img/logout.png" class="exit" width="35px" height="35px"></a></li>
+    	  </ul>
+    	</c:if> 
+      </div>
+      
+      <div id="header_service">
+      	<div class="logo">
+      	  <a href="${conPath }/main.do"><img src="${conPath }/img/logo.png" alt="로고" width="130" height="130"></a>
+      	</div>
+      	<div class="search">
+      	  <form action="${conPath }/movieSearchList.do" method="get" class="search_bar">
+            <input type="text" name="schmvTitle" placeholder="search movies..."  value="${param.schmvTitle }">
+            <button type="submit"><img src="${conPath }/img/search.png"></button>
+          </form>
+        </div>
+        <ul class="lnb">
+          <li><a href="${conPath }/movieList.do">MOVIE</a></li>
+          <li><a href="${conPath }/boardList.do">BOARD</a></li>
+          
+          <c:if test="${empty member and not empty admin}">
+            <li><a href="${conPath }/memberList.do">MEMBER</a></li>
+          </c:if>
+        </ul>
+      </div>
+    </header>
+  </div>
+  
+  <%-- <header>
     <c:if test="${empty member and empty admin}"> <!-- 로그인 전 -->
       <div id="header_nav">
         <div class="gnb">
           <ul>
-            <li><a href="${conPath }/loginView.do">LOG IN</a></li>
-            <li><a href="${conPath }/joinView.do">SIGN UP</a></li>
-            <li><a href="${conPath }/main.do">HOME</a></li>
+            <li><a href="${conPath }/loginView.do"><img src="${conPath }/img/login.png" class="enter" width="35px" height="35px"></a></li>
+            <li><a href="${conPath }/joinView.do"><img src="${conPath }/img/link.png" class="link" width="35px" height="35px"></a></li>
+            <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
           </ul>
         </div>
       </div>
@@ -137,9 +76,9 @@
       <div id="header_nav">
         <div class="gnb">
           <ul>
-            <li><a href="${conPath }/logout.do">LOG OUT</a></li>
-            <li><a href="${conPath }/myPageView.do">${member.mId }님</a></li>
-            <li><a href="${conPath }/main.do">HOME</a></li>
+            <li><a href="${conPath }/logout.do"><img src="${conPath }/img/logout.png" class="exit" width="35px" height="35px"></a></li>
+            <li><a href="${conPath }/myPageView.do"><img src="${conPath }/img/user.png" class="user" width="35px" height="35px"></a></li>
+            <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
           </ul>
         </div>
       </div>
@@ -148,13 +87,14 @@
       <div id="header_nav">
         <div class="gnb">
           <ul>
-            <li><a href="${conPath }/logout.do">LOG OUT</a></li>
-            <li><a href="#">${admin.aId }님</a></li>
-            <li><a href="${conPath }/main.do">HOME</a></li>
+            <li><a href="${conPath }/logout.do"><img src="${conPath }/img/logout.png" class="exit" width="35px" height="35px"></a></li>
+            <li><a href="#"><img src="${conPath }/img/admin.png" class="admin" width="35px" height="35px"></a></li>
+            <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
           </ul>
         </div>
       </div>
      </c:if>
+     
       <div id="header_info">
         <div class="logo">
         <a href="${conPath }/main.do"><img src="${conPath }/img/logo.png" alt="로고" width="130" height="130"></a>
@@ -176,6 +116,6 @@
         </div>
       </div>
     
-  </header>
+  </header> --%>
 </body>
 </html>

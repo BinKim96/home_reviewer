@@ -8,22 +8,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <style>
-  	#content_form {
-		width: 800px; height:370px;
-		margin: 130px auto 0px;
-	}
-	table {
-		margin: 0 auto;
-	}
-  </style>
+  <style></style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function(){
 	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/member/login.css" rel="stylesheet">
 </head>
 <body>
   <c:if test="${not empty joinResult}">
@@ -33,26 +25,24 @@
 	<script>alert('${joinErrorMsg }');</script>
   </c:if>
   <jsp:include page="../main/header.jsp"/>
-  <div id="content_form">
+  <div id ="main_wrap">
     <form action="${conPath }/memberLogin.do" method="post">
-      <table>
-        <caption>회원 로그인</caption>
-        <tr>
-          <th>아이디</th>
-          <td><input type="text" name="mId" value="${mId }" required="required"></td>
-        </tr>
-        <tr>
-          <th>패스워드</th>
-          <td><input type="password" name="mPw" required="required"></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <input type="submit" value="로그인" class="btn">
-            <input type="button" value="회원가입" class="btn" onclick="location.href='${conPath}/memberJoinView.do'">
-          </td>
-        </tr>
-      </table>
-    </form>
+    <div class="Login_Form">
+      <h1>로그인</h1>
+      <div class="txtb">
+        <input type="text" name="mId" value="${mId }" required="required">
+        <span data-placeholder='Username'></span>
+	  </div>
+	  <div class="txtb">
+	    <input type="password" name="mPw" required="required">
+	    <span data-placeholder='Password'></span>
+	  </div>
+	  <input type="submit" value="로그인" class="loginbt">
+	  <div class="bottom-text">
+	    아이디가 없으세요? <a href="${conPath }/joinView.do">회원가입하기</a>
+	  </div>
+    </div>
+  </form>
   </div>
   <jsp:include page="../main/footer.jsp"/>
 </body>

@@ -21,14 +21,14 @@ public class BoardListService implements Service {
 			}
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE=3, BLOCKSIZE=2;
+		final int PAGESIZE=10, BLOCKSIZE=2;
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
 		BoardDao boardDao = BoardDao.getInstance();
 		ArrayList<BoardDto> boardList = boardDao.listBoard(startRow, endRow);
 		request.setAttribute("boardList", boardList);
-		int boardCnt = boardDao.getBoardCnt();
-		int pageCnt = (int)Math.ceil((double)boardCnt/PAGESIZE);
+		int totCnt = boardDao.getBoardCnt();
+		int pageCnt = (int)Math.ceil((double)totCnt/PAGESIZE);
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE+1;
 		int endPage = startPage + BLOCKSIZE - 1;
 		if(endPage>pageCnt) {
@@ -38,7 +38,7 @@ public class BoardListService implements Service {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("boardCnt", boardCnt); 
+		request.setAttribute("totCnt", totCnt); 
 		request.setAttribute("pageNum", currentPage);
 	}
 }

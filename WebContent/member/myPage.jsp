@@ -18,7 +18,7 @@
   <link href="${conPath }/css/style.css" rel="stylesheet">
 </head>
 <body>
-  <jsp:include page="../main/header.jsp" />
+  <jsp:include page="../main/header.jsp"/>
   <div id="Form">
     <jsp:include page="../main/myPageMenu.jsp" />
   </div>

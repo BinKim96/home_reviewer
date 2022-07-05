@@ -38,7 +38,7 @@
   <%-- <link href="${conPath }/css/style.css" rel="stylesheet"> --%>
 </head>
 <body>
-  <jsp:include page="../main/header.jsp"/>
+  
   <div id="navigation">
     <ul class="menu">
       <li>
@@ -52,6 +52,6 @@
       </li>
     </ul>
   </div>
-  <jsp:include page="../main/footer.jsp"/>
+  
 </body>
 </html>

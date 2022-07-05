@@ -21,7 +21,7 @@ public class RbReviewBoardListService implements Service {
 			}
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE=2, BLOCKSIZE=1;
+		final int PAGESIZE=5, BLOCKSIZE=5;
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
 		

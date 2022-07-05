@@ -9,13 +9,13 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <style>
-  	#content_form {
+  	/* #content_form {
 		width: 1000px; height:470px;
 		margin: 30px auto 0px;
 	}
 	#content_form table tr { 
 		height: 10px;
-	}
+	} */
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -28,7 +28,7 @@
 	  });
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/board/board.css" rel="stylesheet">
 </head>
 <body>
   <c:set var="SUCCESS" value="1"/>
@@ -74,54 +74,70 @@
 	  </td>
     </tr>
   </table>
-  <table>
-      <tr>
-        <th>글번호</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>날짜</th>
-        <th>조회수</th>
-      </tr>
-  <c:if test="${boardCnt==0 }">
-	  <tr>
-	    <td colspan="5">등록된 글이 없습니다</td>
-	  </tr>
-  </c:if>
-  <c:if test="${boardCnt!=0 }">
-    <c:forEach items="${boardList }" var="board">
-      <tr>
-        <td>${board.bNum }</td>
-        <td class="left">
-          <c:forEach var="i" begin="1" end="${board.bIndent }">
-			<c:if test="${i==board.bIndent }">└</c:if>
-			<c:if test="${i!=board.bIndent }"> &nbsp; &nbsp; </c:if>
-		  </c:forEach>
-		  ${board.bTitle }
-			<c:if test="${board.bHit > 10 }"><img src="${conPath }/img/hot.png" width="20" height="20"></c:if>
-        </td>
-        <td>${board.mId }</td>
-        <td><fmt:formatDate value="${board.bRdate }" type="date" dateStyle="short"/></td>
-        <td>${board.bHit }</td>
-      </tr>
-    </c:forEach>
-  </c:if>
-  </table>
-  <div class="paging">
-    <c:if test="${startPage > BLOCKSIZE }">
-	  [ <a href="${conPath }/boardList.do?pageNum=${startPage-1}"> 이전 </a> ]
-	</c:if>
-	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-	  <c:if test="${i == pageNum }">
-	    <b> [ ${i } ] </b>
+  
+  <div class="board_list_wrap">
+    <table class ="board_list">
+      <caption>게시판 목록</caption>
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>글쓴이</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+      <c:if test="${totCnt==0 }">
+	    <tr>
+	      <td colspan="5">등록된 글이 없습니다</td>
+	    </tr>
+      </c:if>
+      <c:if test="${totCnt!=0 }">
+        <c:forEach items="${boardList }" var="board">
+          <tr>
+            <td>${board.bNum }</td>
+            <td class="tit">
+              <c:forEach var="i" begin="1" end="${board.bIndent }">
+              <c:if test="${i==board.bIndent }">└</c:if>
+              <c:if test="${i!=board.bIndent }"> &nbsp; &nbsp; </c:if>
+              </c:forEach>
+              ${board.bTitle }
+              <c:if test="${board.bHit > 10 }"><img src="${conPath }/img/hot.png" width="20" height="20"></c:if>
+            </td>
+            <td>${board.mId }</td>
+            <td><fmt:formatDate value="${board.bRdate }" type="date" dateStyle="short"/></td>
+            <td>${board.bHit }</td>
+          </tr>
+        </c:forEach>
+      </c:if>  
+      </tbody>
+    </table>
+    
+    <div class="paging">
+      <%-- <a href="${conPath }/boardList.do?pageNum=1" class="btn">첫페이지</a> --%>
+        
+      <c:if test="${startPage > BLOCKSIZE }">
+	  	<a href="${conPath }/boardList.do?pageNum=${startPage-1}" class="btn"> 이전 </a>
 	  </c:if>
-	  <c:if test="${i != pageNum }">
-	  	[ <a href="${conPath }/boardList.do?pageNum=${i}"> ${i } </a> ]
+	  
+	  <c:forEach var="i" begin="${startPage }" end="${endPage }">
+	    <c:if test="${i eq pageNum }">
+	   		<a class="num">${i }</a>
+	    </c:if>
+	    <c:if test="${i != pageNum }">
+	  	  <a href="${conPath }/boardList.do?pageNum=${i}" class="num"> ${i } </a>
+	    </c:if>
+	  </c:forEach>
+	  
+	  <c:if test="${endPage<pageCnt }">
+		  <a href="${conPath }/boardList.do?pageNum=${endPage+1}" class="btn"> 다음 </a>
 	  </c:if>
-	</c:forEach>
-		<c:if test="${endPage<pageCnt }">
-		  [ <a href="${conPath }/boardList.do?pageNum=${endPage+1}"> 다음 </a> ]
-		</c:if>
-	</div>
+	  
+	  <%-- <a href="${conPath }/boardList.do?pageNum=${pageCnt }" class="btn">끝페이지</a> --%>
+    </div>
+  </div>
+  
   </div>
 </body>
 </html>
