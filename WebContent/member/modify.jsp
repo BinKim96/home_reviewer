@@ -59,6 +59,7 @@
 				$('input[name="mEmail"]').focus();
 				return false;
 			}
+			
 	  });
   });
 </script>
@@ -70,9 +71,7 @@
       <div id="border">
         <table>
           <caption class="modify">${member.mId }님 정보수정</caption>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
+          
           <tr>
 		    <td>아이디 <b>*</b></td>
 		    <td rowspan="5"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" width="150px" height="200px"></td>
@@ -148,17 +147,22 @@
 		  </tr>
 		  
 		  <tr>
-			<td colspan="2">성별 <b>*</b></td>
-		  </tr>
-		  <tr>
-			<td colspan="2">
+			<td colspan="2" rowspan="2">
+			성별 <b>*</b>
 			  <label for="m" id="m">남자</label><input type="radio" name="mGender" value="m" checked="checked"> 
 			  <label for="f">여자</label><input type="radio" name="mGender" value="f" id="f">
+			
 			</td>
+			
+			
+			
+		  </tr>
+		  <tr>
+			
 		  </tr>
 		  <tr>
 		    <td colspan="2">
-			  <input type="submit" value="수정하기" class="btn"> 
+			  <input type="submit" value="수정하기" class="btn" > 
 		    </td>
 		  </tr>
         </table>

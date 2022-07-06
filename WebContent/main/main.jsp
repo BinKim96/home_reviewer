@@ -15,7 +15,7 @@
 	  
   });
 </script>
-  <link href="${conPath }/css/main/main.css" rel="stylesheet">
+  <link href="${conPath }/css/movie/movieList.css" rel="stylesheet">
 </head>
 <body>
   <c:if test="${not empty loginResult}">
@@ -30,7 +30,8 @@
   
   <jsp:include page="../main/header.jsp"/>
   
-  <%-- <div class="list_wrap">
+  <div class="list_wrap">
+    <div class="main_title1"><h1>LATEST MOIVES</h1></div>
     <ul>
       <li class="item">
         <table>
@@ -41,8 +42,8 @@
           		<a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300px"></a>
           	  </div>
               <div class="cont">
-                <strong>${movie.mvTitle } (${movie.mvReleaseYear }) ${movie.mlCnt }</strong><br>
-                <p><img src="${conPath }/img/checkedLike.png" width="16px" height="16px"> ${movie.mlCnt }</p>
+                <strong>${movie.mvTitle } (${movie.mvReleaseYear })</strong><br>
+                <p><img src="${conPath }/img/checkedLike.png" width="15px" height="15px"> <b>${movie.mlCnt }</b></p>
               </div>
             </td>
           </c:forEach>
@@ -50,11 +51,31 @@
         </table>
       </li>
     </ul>
-  </div> --%>
+    <div class="main_title2"><h1>POPULAR MOVIES</h1></div>
+    <ul>
+      <li class="item">
+        <table>
+          <tr>
+          <c:forEach var="movie" items="${popularMovies }">
+            <td>
+              <div class="image">
+          		<a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId }"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300px"></a>
+          	  </div>
+              <div class="cont">
+                <strong>${movie.mvTitle } (${movie.mvReleaseYear }) </strong><br>
+                <p><img src="${conPath }/img/checkedLike.png" width="15px" height="15px"> <b>${movie.mlCnt }</b></p>
+              </div>
+            </td>
+          </c:forEach>
+          </tr>
+        </table>
+      </li>
+    </ul>
+  </div>
   
   
   
-  <div id="content">
+  <%-- <div id="content">
     <table>
       <b>최신영화</b>
       <tr>
@@ -80,7 +101,7 @@
         </c:forEach>
       </tr>
     </table>
-  </div>
+  </div> --%>
   
   <jsp:include page="../main/footer.jsp"/>
 </body>

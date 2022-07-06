@@ -182,6 +182,7 @@ public class Controller extends HttpServlet {
 			service = new BoardReplyViewService();
 			service.execute(request, response);
 			viewPage = "board/boardReply.jsp";
+			
 		}else if(com.equals("/boardReply.do")) {
 			service = new BoardReplyService();
 			service.execute(request, response);
@@ -190,7 +191,6 @@ public class Controller extends HttpServlet {
 		************ movie 관련 요청 ************
 		***************************************/
 		}else if(com.equals("/movieContent.do")) {
-			
 			service = new MvmovieContentService();
 			service.execute(request, response);
 			service = new RbReviewBoardListService(); 
@@ -199,7 +199,6 @@ public class Controller extends HttpServlet {
 			service.execute(request, response);
 			service = new MvMovieCountReserveService();
 			service.execute(request, response);
-			
 			viewPage = "movie/movieContent.jsp";
 			
 		}else if(com.equals("/movieList.do")) {
@@ -240,6 +239,7 @@ public class Controller extends HttpServlet {
 			service = new MvMovieLikeInsertService();
 			service.execute(request, response);
 			viewPage = "movieContent.do";
+			
 		}else if(com.equals("/movieLikeDelete.do")) {	
 			service = new MvMovieLikeDeleteService();
 			service.execute(request, response);

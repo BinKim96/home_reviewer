@@ -21,7 +21,7 @@ public class MMemberListService implements Service {
 			}
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE=9, BLOCKSIZE=10;
+		final int PAGESIZE=21, BLOCKSIZE=5;
 		int startRow = (currentPage-1) * PAGESIZE +1;
 		int endRow   = startRow + PAGESIZE -1;
 		MemberDao mDao = MemberDao.getInstance();

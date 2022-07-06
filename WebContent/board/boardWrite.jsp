@@ -20,11 +20,48 @@
 	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/board/boardWrite.css" rel="stylesheet">
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
-  <div id="content_form">
+  
+  <form action="${conPath }/boardWrite.do" method="post">
+    <div class="board_wrap">
+  	  <div class="board_title">
+  	    <strong>자유게시판 글쓰기</strong>
+  	    <p>타인에 대한 비방과 욕설은 자제합시다!</p>
+  	  </div>
+  	  
+  	  <div class="board_write_wrap">
+  	    <div class="board_write">
+  	    
+  	      <div class="title">
+  	        <dl>
+  	          <dt>제목</dt>
+  	          <dd><input type="text" name="bTitle" required="required"></dd>
+  	        </dl>
+  	      </div>
+  	      <div class="info">
+  	        <dl>
+  	          <dt>작성자</dt>
+  	          <dd><input type="text" name="mId" value="${member.mId }" readonly="readonly"></dd>
+  	        </dl>
+  	      </div>
+  	      <div class="cont">
+  	        <textarea name="bContent" placeholder="내용 입력"></textarea>
+  	      </div>
+  	    </div>
+  	  </div>
+  	  <div class="bt_wrap">
+  	    <input type="submit" value="글쓰기" class="on">
+  	    <input type="button" value="목록" class="btn" onclick="location.href='${conPath }/boardList.do'">
+  	  </div>
+    </div>
+  </form>
+  
+  
+  
+  <%-- <div id="content_form">
   	<form action="${conPath }/boardWrite.do" method="post">
   	  <table>
   	  	<caption>글쓰기</caption>
@@ -33,11 +70,11 @@
   	  	  <td><input type="text" name="mId" value="${member.mId }" readonly="readonly"></td>
   	  	</tr>
   	  	<tr>
-  	  	  <td>제목</td>
+  	  	  <th>제목</th>
   	  	  <td><input type="text" name="bTitle" required="required" size="30"></td>
   	  	</tr>
   	  	<tr>
-  	  	  <td>본문</td>
+  	  	  <th>본문</th>
   	  	  <td><textarea name="bContent" rows="5" cols="32"></textarea></td>
   	    </tr>
   	    <tr>
@@ -49,6 +86,6 @@
 		</tr>
   	  </table>
   	</form>
-  </div>
+  </div> --%>
 </body>
 </html>

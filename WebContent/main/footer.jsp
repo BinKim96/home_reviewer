@@ -22,7 +22,7 @@
     <c:if test="${empty member and empty admin }">
         <div class="office_address">
             <ul>
-                <li>info@home_reviewer.com |<a href="${conPath }/adminLoginView.do"> 관리자모드</a></li>
+                <li>info@home_reviewer.com |<a href="${conPath }/adminLoginView.do"> <strong>관리자 모드</strong></a></li>
                 <li>(주)방구석평론가 | 대표이사 김 빈 | 사업자번호 010-9670-6113 | 서울특별시 광진구 능동로37길 31-8 늘해랑 오피스텔</li>
                 <li>
                     ⓒHOWTOSEARCHWEDDINGHALL 2022 ALL RIGHTS RESERVED

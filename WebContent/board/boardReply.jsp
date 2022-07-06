@@ -20,11 +20,54 @@
 	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/board/boardWrite.css" rel="stylesheet">
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
-  <div id="content_form">
+  
+  <form action="${conPath }/boardReply.do" method="post">
+  
+  <input type="hidden" name="bGroup" value="${originBoard.bGroup }">
+  <input type="hidden" name="bStep" value="${originBoard.bStep }">
+  <input type="hidden" name="bIndent" value="${originBoard.bIndent }">
+  
+    <div class="board_wrap">
+  	  <div class="board_title">
+  	    <strong> ${originBoard.mId }님이 작성한 ${originBoard.bNum }번 글에 대한 답변 글</strong>
+  	    <p></p>
+  	  </div>
+  	    
+  	  
+  	  <div class="board_write_wrap">
+  	    <div class="board_write">
+  	    
+  	      <div class="title">
+  	        <dl>
+  	          <dt>제목</dt>
+  	          <dd><input type="text" name="bTitle" required="required" placeholder="제목 입력" ></dd>
+  	        </dl>
+  	      </div>
+  	      <div class="info">
+  	        <dl>
+  	          <dt>작성자</dt>
+  	          <dd><input type="text" name="mId" value="${member.mId }" readonly="readonly"></dd>
+  	        </dl>
+  	      </div>
+  	      <div class="cont">
+  	        <textarea name="bContent" placeholder="내용 입력"></textarea>
+  	      </div>
+  	    </div>
+  	  </div>
+  	  <div class="bt_wrap">
+  	    <input type="submit" value="글쓰기" class="on">
+  	    <input type="button" value="목록" class="btn" onclick="location.href='${conPath }/boardList.do'">
+  	  </div>
+    </div>
+  </form>
+  
+  <jsp:include page="../main/footer.jsp"/> 
+  
+  <%-- <div id="content_form">
     <form action="${conPath }/boardReply.do" method="post">
       <input type="hidden" name="bGroup" value="${originBoard.bGroup }">
 	  <input type="hidden" name="bStep" value="${originBoard.bStep }">
@@ -52,6 +95,6 @@
   	  </tr>
 	  </table>
     </form>
-  </div>  
+  </div> --%>
 </body>
 </html>

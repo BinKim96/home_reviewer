@@ -21,6 +21,12 @@ a {
 	padding: 50px;
 }
 
+.board_list_wrap h1 {
+	text-align: center;
+}
+.board_list_wrap .main_title {
+	margin-bottom: 20px;
+}
 .board_list {
 	width: 100%;
 	border-top: 1px solid #999999;
@@ -40,10 +46,19 @@ a {
 	text-align: center;
 }
 
+
 .board_list .tit {
 	text-align: left;
+	width: 800px
 }
 
+.board_list .mId {
+	width: 200px
+}
+
+.board_list .date {
+	width: 70px
+}
 .board_list .tit:hover {
 	text-decoration: underline;
 }

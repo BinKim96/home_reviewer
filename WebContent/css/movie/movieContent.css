@@ -3,7 +3,9 @@
 	margin: 0;
 	padding: 0;
 }
-
+h1 {
+	margin-bottom: 8px;
+}
 table {
 	border-collapse: collapse;
 }
@@ -19,7 +21,7 @@ a {
 
 .board_list_wrap {
 	padding-top: 50px;
-	width: 1200px;
+	width: 1000px;
 }
 
 .board_list {
@@ -37,15 +39,24 @@ a {
 	font-size: 14px;
 }
 
-.board_list td {
+.board_list td.tit {
+	text-align: left;
+	width: 700px;
+}
+
+.board_list th {
+	text-align: center;
+    width: 1000px;
+}
+
+.board_list .mId {
+	width: 100px;
 	text-align: center;
 }
-
-.board_list .tit {
-	text-align: left;
-	width: 800px;
+.board_list .date {
+	width: 100px;
+	text-align: center;
 }
-
 .board_list_wrap .paging {
 	margin-top: 20px;
 	text-align: center;
@@ -82,4 +93,15 @@ a {
 
 .write_form {
 	margin-top: 30px;
+}
+
+.write_btn {
+	margin-top: 10px;
+  	text-align: right;
+}
+.write_btn button {
+	width: 35px;
+  	height: 35px;
+  	border: none;
+  	background-color: white;
 }

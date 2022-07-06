@@ -9,13 +9,26 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <style>
-  	/* #content_form {
-		width: 1000px; height:470px;
-		margin: 30px auto 0px;
-	}
-	#content_form table tr { 
-		height: 10px;
-	} */
+  	.write_btn {
+  		margin-top: 10px;
+  		text-align: right;
+  	}
+  	.write_btn button {
+  		width: 35px;
+  		height: 35px;
+  		border: none;
+  		background-color: white;
+  	}
+  	.write_btn2 {
+  		margin-top: 10px;
+  		text-align: right;
+  	}
+  	.write_btn2 button {
+  		width: 35px;
+  		height: 35px;
+  		border: none;
+  		background-color: white;
+  	}
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -25,6 +38,10 @@
 		  if(!isNaN(bNum)){
 			location.href = '${conPath}/boardContent.do?bNum='+bNum+'&pageNum=${pageNum}';
 		  }
+	  });
+	  $('.write_btn2').click(function(){
+		  alert("글 작성은 로그인 후에 가능합니다")
+		  location.href='${conPath }/loginView.do';
 	  });
   });
 </script>
@@ -59,7 +76,8 @@
   </c:if>
   <jsp:include page="../main/header.jsp"/>
   <div id="content_form">
-  <table>
+  
+  <%-- <table>
 	<tr>
 	  <td>
 		<c:if test="${not empty member and empty admin}">
@@ -73,9 +91,10 @@
 		</c:if>
 	  </td>
     </tr>
-  </table>
+  </table> --%>
   
   <div class="board_list_wrap">
+    <div class="main_title"><h1>FREE BOARD</h1></div>
     <table class ="board_list">
       <caption>게시판 목록</caption>
       <thead>
@@ -113,9 +132,20 @@
       </c:if>  
       </tbody>
     </table>
+	
+	<c:if test="${not empty member and empty admin}">
+	  <div class="write_btn">
+		<button onclick="location.href='${conPath }/boardWriteView.do'"><img src="${conPath }/img/write.png" alt="글쓰기" width="25" height="25"></button>
+	  </div>
+	</c:if>
+	<c:if test="${empty member and empty admin }">
+	  <div class="write_btn2">
+	    <button><img src="${conPath }/img/write.png" alt="글쓰기" width="25" height="25"></button>
+	  </div>
+	</c:if>
     
     <div class="paging">
-      <%-- <a href="${conPath }/boardList.do?pageNum=1" class="btn">첫페이지</a> --%>
+				<%-- <a href="${conPath }/boardList.do?pageNum=1" class="btn">첫페이지</a> --%>
         
       <c:if test="${startPage > BLOCKSIZE }">
 	  	<a href="${conPath }/boardList.do?pageNum=${startPage-1}" class="btn"> 이전 </a>
@@ -139,5 +169,7 @@
   </div>
   
   </div>
+  
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

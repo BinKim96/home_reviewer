@@ -44,7 +44,7 @@ public class MModifyService implements Service {
 			if(result == MemberDao.SUCCESS) {
 				HttpSession session = request.getSession();
 				session.setAttribute("member", member); // 로그인창에 띄울 아이디
-				request.setAttribute("modifyResult", "회원정보수정실패");
+				request.setAttribute("modifyResult", "회원정보수정 완료! 다시 로그인 해주세요 ^^");
 				System.out.println("회원정보수정완료");
 				session.invalidate();
 			}else {

@@ -23,6 +23,7 @@ header #header_info {
 	width: 100%;
 	height: 60px;
 	margin: 0 auto;	
+	
 }
 
 header .gnb {
@@ -38,6 +39,31 @@ header .gnb li {
 header .gnb li:last-child {
 	margin-right: 50px;
 }
+
+/* header .gnb li:nth-child(2) {
+	vertical-align: top;
+}
+
+.gnb > ul .submenu {
+	display: none;
+	background-color: white;
+} 
+
+.gnb li > ul:hover > .submenu a{
+	display: block;
+}  */
+
+header .submenu ul li a {
+	
+	text-decoration: underline;
+}
+
+
+
+
+
+
+
 
 header #header_service{
 	width: 100%;

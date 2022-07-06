@@ -11,11 +11,11 @@
 
 .Login_Form{
   width : 400px;
-  background-color : #f1f1f1;
+  background-color : #e6e6e6;
   margin-top: 350px;
   height : 500px;
   padding : 80px 40px;
-  border-radius: 10px;
+  border-radius: 20px;
   position : relative;
   left : 50%;
   top:50%;
@@ -49,8 +49,8 @@
   width :100%;
   height : 50px; 
   border : none; 
-  background: -webkit-linear-gradient(to right, #ff9068, #fd746c);
-  background: linear-gradient(120deg, #ff9068, #fd746c);
+  background: -webkit-linear-gradient(to right, #ffde68, #ffa500);
+  background: linear-gradient(120deg, #ffde68, #ffa500);
   D 0%, #B721FF 100%);
   border-radius : 10px;
   background-size : 200%;
@@ -58,7 +58,8 @@
   color : #fff; 
   outline : none ;
   cusor : pointer;
-  transition :.5s;   
+  transition :.5s; 
+  font-size: 20px;  
 }
 
 .loginbt: hover{

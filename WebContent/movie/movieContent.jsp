@@ -11,16 +11,17 @@
   <style>
     #main_wrap {
     	width: 100%;
-    	height: 1200px;
+    	height: 1400px;
     }
     #content_form {
-		width: 1200px; height:600px;
+		width: 1000px; height:600px;
 		margin: 100px auto 0px;
 	}
-	tr th:nth-child(2), tr th:nth-child(2) {
-	 width : 200px;
+	.content_table th {
+		text-align: left;
+		padding-left: 15px;
+		width: 150px;
 	}
-	
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -47,9 +48,26 @@
 			  location.href='${conPath}/movieReserveDelete.do?mId='+'${member.mId}&mvId='+'${movie.mvId}';
 		  }
 	  });
+	  $('.write_btn').click(function(){
+		  alert("리뷰 작성은 로그인 후에 가능합니다")
+		  location.href='${conPath }/loginView.do';
+	  });
+	  $('.delete').click(function(){
+		  var answer = confirm('해당 영화를 삭제하시겠습니까?');
+		  if(answer == true) {
+			  location.href="${conPath}/movieDelete.do?mvId=${movie.mvId }";
+		  }
+	  });
   });
 </script>
-
+<script>
+  function fun(rbNum, mvId, pageNum){
+	  var answer = confirm('해당 댓글을 삭제하시겠습니까?');
+	  if(answer == true) {
+	    location.href = '${conPath}/reviewBoardDelete.do?rbNum='+rbNum+'&mvId='+mvId+'&pageNum='+pageNum;
+	  }
+  }
+</script>
 
   <link href="${conPath }/css/movie/movieContent.css" rel="stylesheet">
 </head>
@@ -77,8 +95,12 @@
   <div id ="main_wrap">
   
   <div id="content_form">
-  <table>
-    <tr>
+    <div class="main_title">
+      <h1>${movie.mvTitle }</h1>
+    </div>
+    
+  <table class="content_table">
+    <%-- <tr>
       <th colspan="3">${movie.mvTitle }(${movie.mvReleaseYear })
         <c:if test="${not empty member }">
           <c:if test="${likeCount eq 0}">
@@ -92,55 +114,93 @@
           </c:if>
           <c:if test="${reserveCount eq 1}">
 	        <img src="${conPath }/img/checkedReserve.png" class="reserve" width="20px" height="20px"> <!-- 눌러진상태 -->
-		  </c:if>
+		  </c:if> 
         </c:if> 
       </th>
-    </tr>
+    </tr> --%>
   	<tr>
-  	  <td rowspan="7"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></td>
+  	  <td rowspan="8"><img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300"></td>
   	  <th>장르</th>
-  	  <td>${movie.gName }</td>
+  	  <td colspan="5">${movie.gName }</td>
   	</tr>
   	<tr>
   	  <th>개봉일</th>
-  	  <td>${movie.mvReleaseDate }</td>
+  	  <td colspan="5">${movie.mvReleaseDate }</td>
   	</tr>
   	<tr>
   	  <th>상영등급</th>
-  	  <td>${movie.grName }</td>
+  	  <td colspan="5">${movie.grName }</td>
   	</tr>
   	<tr>
   	  <th>상영시간</th>
-  	  <td>${movie.mvRunningTime }</td>
+  	  <td colspan="5">${movie.mvRunningTime }</td>
   	</tr>
   	<tr>
-  	  <th>감독</th>
-  	  <td>${movie.mvDirector }</td>
+  	  <th >감독</th>
+  	  <td colspan="5">${movie.mvDirector }</td>
   	</tr>
   	<tr>
   	  <th>출연</th>
-  	  <td>${movie.mvCast }</td>
+  	  <td colspan="5">${movie.mvCast }</td>
   	</tr>
   	<tr>
   	  <th>줄거리</th>
-  	  <td>${movie.mvContent }</td>
+  	  <td colspan="5">${movie.mvContent }</td>
   	</tr>
-  	<c:if test="${not empty admin }">
+  	<%-- <c:if test="${not empty admin }">
   	<tr>
   	  <td>
   	    <a href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a>
   	    <a href='${conPath}/movieDelete.do?mvId=${movie.mvId }'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a>
-  	    <%-- <input type="button" value="수정" class="btn" onclick="location.href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'">
-  	    <input type="button" value="삭제" class="btn" onclick="location.href='${conPath}/movieDelete.do?mvId=${movie.mvId }'">  --%>
+  	    <input type="button" value="수정" class="btn" onclick="location.href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'">
+  	    <input type="button" value="삭제" class="btn" onclick="location.href='${conPath}/movieDelete.do?mvId=${movie.mvId }'">
   	  </td>
   	  <td colspan="2"></td>
+  	</tr>
+  	</c:if> --%>
+  	
+  	<c:if test="${not empty member }">
+  	<tr>
+  	  <th></th>
+  	  <th class="like_title">좋아요</th>
+  	  <td class="add">
+  	    <c:if test="${likeCount eq 0}">
+            <img src="${conPath }/img/unCheckedLike.png" class="like" width="20px" height="20px">  <!-- 안눌러진상태 -->
+          </c:if>
+          <c:if test="${likeCount eq 1}">
+	        <img src="${conPath }/img/checkedLike.png" class="like" width="20px" height="20px"> <!-- 눌러진상태 -->
+		  </c:if>
+  	  </td>
+  	  <th class="reserve_title" rowspan="7">찜하기</th>
+  	  <td class="add" rowspan="7">
+  	      <c:if test="${reserveCount eq 0}">
+            <img src="${conPath }/img/unCheckedReserve.png" class="reserve" width="20px" height="20px">  <!-- 안눌러진상태 -->
+          </c:if>
+          <c:if test="${reserveCount eq 1}">
+	        <img src="${conPath }/img/checkedReserve.png" class="reserve" width="20px" height="20px"> <!-- 눌러진상태 -->
+		  </c:if>
+  	  </td>
+  	</tr>
+  	</c:if>
+  	
+  	<c:if test="${not empty admin }">
+  	<tr>
+  	  <th></th>
+  	  <th class="like_title">영화 수정</th>
+  	  <td class="add">
+  	    <a href='${conPath}/movieModifyView.do?mvId=${movie.mvId }'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a>
+  	  </td>
+  	  <th class="reserve_title" rowspan="7">영화 삭제</th>
+  	  <td class="add" rowspan="7">
+  	    <img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete">
+  	  </td>
   	</tr>
   	</c:if>
   </table>
   
   
   <div class="board_list_wrap">
-    <c:if test="${empty member }">
+    <%-- <c:if test="${empty member }">
       <div>
         <table>
         <tr>
@@ -148,7 +208,7 @@
         </tr>
       </table>
       </div>
-    </c:if>
+    </c:if> --%>
     <c:if test="${not empty member or not empty admin}">
   	  <div>
         <table>
@@ -163,12 +223,19 @@
       <caption>REVIEW 게시판</caption>
       <thead>
         <tr>
-          <th>REVIEW</th>
-          <th>글쓴이</th>
-          <th>작성일</th>
+          <th class="tit">REVIEW</th>
+          <th class="mId">글쓴이</th>
+          <th class="date">작성일</th>
         </tr>
       </thead>
       <tbody>
+      <c:if test="${(empty member and not empty admin) or (empty member and empty admin)}">
+        <c:if test="${reviewList.size() eq 0 }">
+          <tr>
+		    <td colspan="3">등록된 후기가 없습니다 </td>
+	      </tr>
+        </c:if>
+      </c:if>
       <c:if test="${not empty member and empty admin }">
         <c:if test="${reviewList.size() eq 0 }">
           <tr>
@@ -179,20 +246,30 @@
       <c:if test="${reviewList.size() != 0 }">
         <c:forEach var="review" items="${reviewList }" >
           <tr>
-		  	<td class="tit">${review.rbContent }</td>
-		  	<td>${review.mId }</td>
-		  	<td><fmt:formatDate value="${review.rbRdate }" type="date" dateStyle="short"/></td>
+		  	<td class="tit">
+		  		${review.rbContent }
+			</td>
+		  	<td class="mId">${review.mId }</td>
+		  	<td class="date"><fmt:formatDate value="${review.rbRdate }" type="date" dateStyle="short"/></td>
 		  <c:if test="${(not empty member and empty admin) and (member.mId eq review.mId) }">
-		    <td><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
+		    <td ><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
 		  </c:if>
 		  <c:if test="${(empty member and not empty admin) or (member.mId eq review.mId)}">
-		    <td><a href='${conPath}/reviewBoardDelete.do?rbNum=${review.rbNum}&mvId=${review.mvId}&pageNum=${pageNum}'><img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete"></a></td>
+		    <td>
+		      <img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete_review" onclick="fun(${review.rbNum}, ${review.mvId}, ${pageNum})">
+		    </td>
 		  </c:if>
 		  </tr>
         </c:forEach>
       </c:if>
       </tbody>
     </table>
+    
+    <c:if test="${empty member and empty admin }">
+	  <div class="write_btn">
+	    <button><img src="${conPath }/img/write.png" alt="글쓰기" width="25" height="25"></button>
+	  </div>
+	</c:if>
     
     <div class="paging">
   

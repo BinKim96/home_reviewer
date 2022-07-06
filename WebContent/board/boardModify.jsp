@@ -9,10 +9,6 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <style>
-    #content_form {
-			width: 800px; height:400px;
-			margin: 100px auto 0px;
-	}
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -20,11 +16,52 @@
 	  
   });
 </script>
-  <link href="${conPath }/css/style.css" rel="stylesheet">
+  <link href="${conPath }/css/board/boardWrite.css" rel="stylesheet">
 </head>
 <body>
   <jsp:include page="../main/header.jsp"/>
-  <div id="content_form">
+  
+  <form action="${conPath }/boradModify.do" method="post">
+    <input type="hidden" name="bNum" value="${board.bNum }">
+    <div class="board_wrap">
+    
+       <div class="board_title">
+         <strong>${board.bNum }번 글 수정</strong>
+       </div>
+       
+       <div class="board_write_wrap">
+         <div class="board_write">
+           
+           <div class="title">
+             <dl>
+               <dt>제목</dt>
+               <dd><input type="text" name="bTitle" required="required" size="30" value="${board.bTitle }"></dd>
+             </dl>
+           </div>
+           
+           <div class="info">
+             <dl>
+               <dt>작성자</dt>
+               <dd><input type="text" name="mId" value="${member.mId }" readonly="readonly"></dd>
+             </dl>
+           </div>
+           
+           <div class="cont">
+             <textarea name="bContent" rows="5" cols="32">${board.bContent }</textarea>
+           </div>
+         </div>
+         
+         <div class="bt_wrap">
+           <input type="submit" value="수정" class="btn">
+		   <input type="button" value="목록"  class="btn" onclick="location='${conPath}/boardList.do'">
+		   <input type="button" value="이전" class="btn" onclick="history.back()">
+         </div> 
+           
+       </div>
+    </div> <!-- board_wrap -->
+  </form>
+  
+  <%-- <div id="content_form">
   <form action="${conPath }/boradModify.do" method="post">
 	<input type="hidden" name="bNum" value="${board.bNum }">
 	<table>
@@ -50,6 +87,8 @@
 	  </tr>
 	</table>
   </form>
-  </div>
+  </div> --%>
+  
+  <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

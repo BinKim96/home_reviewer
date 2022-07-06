@@ -9,9 +9,6 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <style>
-    #main_wrap {
-    	height: 1200px;
-    }
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -43,23 +40,24 @@
   <jsp:include page="../main/header.jsp"/>
   
   <div class="list_wrap">
+  <div class="main_title1"><h1>MOVIES</h1></div>
     <ul>
       <li class="item">
       	<table>
       	<tr>
         <c:set var="i" value="0"/>
         <c:forEach var="movie" items="${movieList }">
-        	<td>
-          <div class="image">
-          	<a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId }">
-          		<img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300px">
-          	</a>
-          </div>
-          <div class="cont">
-            <strong>${movie.mvTitle } (${movie.mvReleaseYear }) ${movie.mlCnt }</strong><br>
-            <p><img src="${conPath }/img/checkedLike.png" width="16px" height="16px"> ${movie.mlCnt }</p>
-          </div>
-          </td>
+          <td>
+            <div class="image">
+          	  <a href="${conPath }/movieContent.do?mvId=${movie.mvId }&mId=${member.mId }">
+          	    <img src="${conPath }/moviePosterUp/${movie.mvPoster}" alt="포스터" width="300px">
+          	  </a>
+            </div>
+            <div class="cont">
+              <strong>${movie.mvTitle } (${movie.mvReleaseYear })</strong><br>
+              <p><img src="${conPath }/img/checkedLike.png" width="16px" height="16px"> <b>${movie.mlCnt }</b></p>
+            </div>
+           </td>
           <c:set var="i" value="${i+1 }"/>
           <c:if test="${i%3 eq 0 }">
           	</tr><tr>
@@ -69,7 +67,7 @@
         </table>
       </li>
     </ul>
-  <div class="paging">
+   <div class="paging">
       <%-- <a href="${conPath }/boardList.do?pageNum=1" class="btn">첫페이지</a> --%>
         
       <c:if test="${startPage > BLOCKSIZE }">

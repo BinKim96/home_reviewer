@@ -15,7 +15,7 @@ a {
 .list_wrap {
 	width: 1000px;
 	margin: 0 auto;
-	padding: 50px 135px 100px 100px;	
+	padding: 50px 100px 100px 100px;
 }
 
 h1{
@@ -32,6 +32,7 @@ h1{
 	margin-left: 53px;
 }
 .list_wrap ul {
+	
 }
 
 .list_wrap .item {
@@ -57,7 +58,8 @@ h1{
 }
 
 .list_wrap .item .cont {
-	padding: 10px 20px 10px 0;
+	/* padding: 10px 20px 10px 0; */
+	padding-top: 10px;
 }
 
 .list_wrap .item strong {
@@ -120,5 +122,3 @@ h1{
 .paging b {
 	color: white;
 }
-
-
