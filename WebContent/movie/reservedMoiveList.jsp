@@ -23,7 +23,7 @@
   <jsp:include page="../main/header.jsp"/>
   
   <div class="list_wrap">
-  <div class="main_title1"><h1>${member.mId }님의 MOVIES</h1></div>
+  <div class="search_title"><h1>${member.mId }님의 MOVIES</h1></div>
     <ul>
       <li class="item">
         <table>

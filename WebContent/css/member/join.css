@@ -29,7 +29,7 @@ table td {
     padding-left: 30px;
 }
 input {
-	border: 1px solid lightgray;
+	border: /* 1px solid lightgray; */1px solid #fe881d;
     width: 400px;
     height: 28px;
     border-radius: 5px;
@@ -47,8 +47,9 @@ input[type='submit'] {
 	width: 430px;
     height: 60px;
     margin: 0 auto;
-    background-color: #7ca4c7;
-    background-color: #757169;
+    background-color: #fe881d;
+    /* background-color: #7ca4c7;
+    background-color: #757169; */
     font-weight:bold;
     font-size:1.3em;
     color:white;
@@ -62,15 +63,34 @@ input[type='radio'] {
     color:white;
 }
 b {
-	color: red;
+	color: #fe881d;
 }
 
-#idConfirmResult{
+#idConfirmResult i{
     font-size:10px;
+    color: green;
+    font-weight: bold;
 }
-#pwChkResult{
-	font-size:10px;
+#idConfirmResult b{
+    font-size:10px;
+    color: red;
 }
-#emailConfirmResult{
+#pwChkResult i{
 	font-size:10px;
+	color: green;
+	font-weight: bold;
+}
+#pwChkResult b{
+	font-size:10px;
+	color: red;
+}
+#emailConfirmResult i{
+	font-size:10px;
+	color: green;
+	font-weight: bold;
+	/* color: #fe881d; */
+}
+#emailConfirmResult b{
+	font-size:10px;
+	color: red;
 }

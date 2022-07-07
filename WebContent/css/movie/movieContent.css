@@ -5,6 +5,7 @@
 }
 h1 {
 	margin-bottom: 8px;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 table {
 	border-collapse: collapse;
@@ -25,7 +26,7 @@ a {
 }
 
 .board_list {
-	border-top: 1px solid #999999;
+	border-top: 2px solid #fe881d;
 	margin: 0 auto;
 }
 
@@ -81,7 +82,7 @@ a {
 }
 
 .board_list_wrap .paging a.num {
-	border: 1px solid #999999;
+	border: 1px solid #fe881d;
 	font-weight: 600;
 	color: #999999;
 }
@@ -100,8 +101,44 @@ a {
   	text-align: right;
 }
 .write_btn button {
-	width: 35px;
-  	height: 35px;
+	/* width: 35px;
+  	height: 35px; */
   	border: none;
   	background-color: white;
 }
+div .btn {
+	width: 70px;
+	margin-left: 930px;
+	margin-top: 10px;
+}
+#main_wrap {
+    	width: 100%;
+    	height: 1400px;
+    }
+    #content_form {
+		width: 1000px; height:600px;
+		margin: 100px auto 0px;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	.content_table th {
+		text-align: left;
+		padding-left: 15px;
+		width: 150px;
+	}
+	textarea {
+		width: 930px;
+		height: 50px;
+		padding: 10px;
+		box-sizing: border-box;
+		border: solid 2px orange;
+		border-radius: 5px;
+		font-size: 16px;
+		resize: none;
+		margin-right: 5px;
+	}
+	.write_form button {
+		width: 50px;
+		height: 50px;
+		border: none;
+		background-color: white;
+	}

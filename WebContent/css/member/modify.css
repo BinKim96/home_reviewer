@@ -13,7 +13,8 @@
     border-radius: 10px;
     -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .modify{
 	font-family: sans-serif;
@@ -52,6 +53,7 @@ input[type='submit'] {
     font-weight:bold;
     font-size:1.3em;
     color:white;
+    background-color: #fe881d;
 }
 input[type='radio'] {
 	width: 60px;
@@ -62,15 +64,26 @@ input[type='radio'] {
     color:white;
 }
 b {
-	color: red;
+	color: #fe881d;
 }
 
-td{
-	border: 1px solid lightgray;
-}
-#pwChkResult{
+
+#pwChkResult i{
 	font-size:10px;
+	color: green;
+	font-weight: bold;
 }
-#emailConfirmResult{
+#pwChkResult b{
 	font-size:10px;
+	color: red;
+}
+#emailConfirmResult i{
+	font-size:10px;
+	color: green;
+	font-weight: bold;
+	/* color: #fe881d; */
+}
+#emailConfirmResult b{
+	font-size:10px;
+	color: red;
 }

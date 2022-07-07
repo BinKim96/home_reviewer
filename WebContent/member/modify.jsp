@@ -16,7 +16,7 @@
 			var mPw = $('input[name="mPw"]').val();
 			var mPwChk = $('input[name="mPwChk"]').val();
 			if(mPw == mPwChk){
-				$('#pwChkResult').html('비밀번호 일치');
+				$('#pwChkResult').html('<i>비밀번호 일치</i>');
 			}else{
 				$('#pwChkResult').html('<b>비밀번호 불일치</b>');
 			}
@@ -71,43 +71,43 @@
       <div id="border">
         <table>
           <caption class="modify">${member.mId }님 정보수정</caption>
-          
+          <tr>
+            <td colspan="2"></td>
+          </tr>
           <tr>
 		    <td>아이디 <b>*</b></td>
-		    <td rowspan="5"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" width="150px" height="200px"></td>
+		    <td rowspan="4"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" width="150px" height="200px"></td>
 		  </tr>
 		  <tr>
 			<td>
 			  <input type="text" name="mId" value="${member.mId }" readonly="readonly">
 			</td>
 		  </tr>
-		  <tr>
-		    <td>&nbsp;</td>
-		  </tr>
+		  
 		  
 		  <tr>
-			<td>비밀번호 <b>*</b></td>
+			<td rowspan="1">비밀번호 <b>*</b></td>
 		  </tr>
 		  <tr>
 		    <td>
 			  <input type="password" name="mPw" required="required">
 			</td>
 		  </tr>
-		  <tr>
-		    <td colspan="2">&nbsp;</td>
-		  </tr>
+		  
 		  
 		  <tr>
 			<td colspan="2">비밀번호 재확인 <b>*</b></td>
 		  </tr>
 		  <tr>
-			<td colspan="2">
+			<td>
 			  <input type="password" name="mPwChk" required="required">
+			  
 			</td>
+			<td><p id="pwChkResult">&nbsp;</p></td>
 		  </tr>
-		  <tr>
+		  <!-- <tr>
 		    <td id="pwChkResult" colspan="2">&nbsp;</td>
-		  </tr>
+		  </tr> -->
 		  
 		  <tr>
 			<td colspan="2">이름 <b>*</b></td>
@@ -117,21 +117,20 @@
 			  <input type="text" name="mName" value="${member.mName }" required="required">
 			</td>
 		  </tr>
-		  <tr>
-		    <td colspan="2">&nbsp;</td>
-		  </tr>
+		  
 		  
 		  <tr>
 			<td colspan="2">이메일 <b>*</b></td>
 		  </tr>
 		  <tr>
-			<td colspan="2">
+			<td>
 			  <input type="text" name="mEmail" value="${member.mEmail }" required="required">
 			</td>
+			<td><p id="emailConfirmResult">&nbsp;</p></td>
 		  </tr>
-		  <tr>
+		  <!-- <tr>
 		    <td id="emailConfirmResult" colspan="2">&nbsp;</td>
-		  </tr>
+		  </tr> -->
 		  
 		  <tr>
 			<td colspan="2">사진</td>
@@ -142,9 +141,7 @@
 			  <input type="file" name="mPhoto" >
 			</td>
 		  </tr>
-		  <tr>
-		    <td colspan="2">&nbsp;</td>
-		  </tr>
+		  
 		  
 		  <tr>
 			<td colspan="2" rowspan="2">

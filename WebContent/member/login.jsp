@@ -36,7 +36,7 @@
   <div id ="main_wrap">
     <form action="${conPath }/memberLogin.do" method="post">
     <div class="Login_Form">
-      <h1>로그인</h1>
+      <h1>LOGIN</h1>
       <div class="txtb">
         <input type="text" name="mId" value="${mId }" required="required">
         <span data-placeholder='Username'></span>

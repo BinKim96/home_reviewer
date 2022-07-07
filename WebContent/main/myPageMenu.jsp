@@ -15,19 +15,27 @@
             margin:0;
             padding:0;
             color:black;           
-        }
-      #navigation {
-            width: 300px;
-            height: 420px;
-            margin: 150px 0 0 100px;
-            font-size: 1.5em;
-            padding-top: 20px;
-            padding-left: 20px;
-            
-        }
-      #navigation .menu {
-            font-weight: bold;
-        }
+      }
+      div{
+      	width:200px; box-sizing:border-box;
+      }
+      ul{
+      	list-style:none; box-sizing:border-box; margin:0; padding:0;  /* background:#eeeeee */;  
+      }
+      ul > li {
+      width:100%; padding:0.8em;  box-sizing:border-box; 
+      }
+      ul > li > ul {
+      	margin-left:8px;  box-sizing:border-box; 
+      }
+      ul > li > ul > li{
+      	/* background:#eeeeee; */ width:100%;  /* border-bottom:1px solid #ffffff; */ padding:0.5em; 
+      }
+      ul > li > ul > li::before {
+      	content:" - "; 
+      }
+
+    .hover{background:#666666; color:#ffffff; cursor:pointer;}
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -39,8 +47,8 @@
 </head>
 <body>
   
-  <div id="navigation">
-    <ul class="menu">
+  <div>
+    <ul>
       <li>
       	<a href="${conPath }/myProfileView.do">프로필</a>
       </li>

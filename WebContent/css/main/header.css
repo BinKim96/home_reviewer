@@ -16,13 +16,15 @@ ul, li {
 
 header {
 	border-bottom: 1px solid #ddd; 
-	background-color : orange;
+	background-color: #fe881d;
 }
 
 header #header_info {
 	width: 100%;
 	height: 60px;
 	margin: 0 auto;	
+	
+	
 	
 }
 
@@ -40,27 +42,24 @@ header .gnb li:last-child {
 	margin-right: 50px;
 }
 
-/* header .gnb li:nth-child(2) {
+
+/* header #header_info ul.gnb li:nth-child(2) {
 	vertical-align: top;
 }
 
-.gnb > ul .submenu {
+header #header_info ul.gnb ul.submenu {
 	display: none;
 	background-color: white;
 } 
 
-.gnb li > ul:hover > .submenu a{
+header #header_info ul.gnb ul.submenu :hover{
 	display: block;
-}  */
+	display: none;
+} 
 
-header .submenu ul li a {
-	
+header #header_info ul.gnb ul.submenu li a {
 	text-decoration: underline;
-}
-
-
-
-
+} */
 
 
 
@@ -96,6 +95,7 @@ header .search {
 	float:left;
 	margin-left: 100px;
 	margin-top: 38px;
+	
 }
 
 header .search_bar {
@@ -108,6 +108,7 @@ header .search_bar {
 	border-radius: 60px;
 	padding: 10px 20px;
 	backdrop-filter: blur(4px) saturate(180%); 
+	
 }
 
 header .search_bar input {
@@ -119,7 +120,8 @@ header .search_bar input {
 	outline: none;
 	padding: 24px 20px;
 	font-size: 20px;
-	color: #eee;	
+	color: #eee;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 ::placeholder {
@@ -144,17 +146,19 @@ header .search_bar input {
 
 header .lnb {
 	float: right;
-	width: 340px;
+	width: 380px;
 	margin-right: 50px;
 	margin-top: 18px;
+	font-family: 'Concert One', cursive;
 }
 
 header .lnb li {
 	display: inline-block;
 	margin-top: 28px;
 	margin-left: 30px;
-	font-size:1.5em;
+	font-size: 2.0em;
 	font-weight: bold;
+	color: white;
 }
 
 header .lnb li:first-child {

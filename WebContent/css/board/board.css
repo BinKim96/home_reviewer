@@ -24,16 +24,24 @@ a {
 .board_list_wrap h1 {
 	text-align: center;
 }
+
 .board_list_wrap .main_title {
 	margin-bottom: 20px;
+	height: 50px;
+	border-bottom: 1px solid #fe881d;
+	padding-bottom: 10px;
+	font-family: 'Concert One', cursive;
 }
+
 .board_list {
 	width: 100%;
-	border-top: 1px solid #999999;
+	font-family: 'Noto Sans KR', sans-serif;
+	/* border-top: 2px solid #fe881d; */
+	
 }
 
 .board_list tr {
-	border-bottom: 1px solid #999999;
+	border-bottom: 1px solid #d4d4d4;
 }
 
 .board_list th, 
@@ -60,7 +68,7 @@ a {
 	width: 70px
 }
 .board_list .tit:hover {
-	text-decoration: underline;
+	text-decoration: blink;
 }
 
 .board_list_wrap .paging {
@@ -87,7 +95,7 @@ a {
 }
 
 .board_list_wrap .paging a.num {
-	border: 1px solid #999999;
+	border: 1px solid #fe881d;
 	font-weight: 600;
 	color: #999999;
 }

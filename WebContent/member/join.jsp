@@ -30,7 +30,7 @@
 			var mPw = $('input[name="mPw"]').val();
 			var mPwChk = $('input[name="mPwChk"]').val();
 			if(mPw == mPwChk){
-				$('#pwChkResult').html('비밀번호 일치');
+				$('#pwChkResult').html('<i>비밀번호 일치</i>');
 			}else{
 				$('#pwChkResult').html('<b>비밀번호 불일치</b>');
 			}

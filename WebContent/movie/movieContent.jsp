@@ -9,19 +9,8 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <style>
-    #main_wrap {
-    	width: 100%;
-    	height: 1400px;
-    }
-    #content_form {
-		width: 1000px; height:600px;
-		margin: 100px auto 0px;
-	}
-	.content_table th {
-		text-align: left;
-		padding-left: 15px;
-		width: 150px;
-	}
+    
+	
   </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -267,7 +256,7 @@
     
     <c:if test="${empty member and empty admin }">
 	  <div class="write_btn">
-	    <button><img src="${conPath }/img/write.png" alt="글쓰기" width="25" height="25"></button>
+	    <button><img src="${conPath }/img/write.png" alt="글쓰기" width="50" height="50"></button>
 	  </div>
 	</c:if>
     
@@ -300,7 +289,9 @@
 	      <tr>
 	        <td>
 	          <textarea rows="2" cols="120" name="rbContent"></textarea>
-	          <input type="submit" value="댓글달기">
+	          <button type="submit"><img src="${conPath }/img/feedback.png" alt="리뷰작성" width="60" height="60"></button>
+	            <!-- <input type="submit" value="댓글달기"> -->
+	          
 	        </td>
 	      </tr>
         </c:if>

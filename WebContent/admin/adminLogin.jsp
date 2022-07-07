@@ -22,7 +22,7 @@
   <div id ="main_wrap">
     <form action="${conPath }/adminLogin.do" method="post">
     <div class="Login_Form">
-      <h1>관리자 로그인</h1>
+      <h1>A.LOGIN</h1>
       <div class="txtb">
         <input type="text" name="aId" value="${mId }" required="required">
         <span data-placeholder='Adminname'></span>

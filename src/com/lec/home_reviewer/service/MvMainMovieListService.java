@@ -17,10 +17,10 @@ public class MvMainMovieListService implements Service {
 		MovieDao mDao = MovieDao.getInstance();
 		HttpSession session = request.getSession();
 		ArrayList<MovieDto> lastMovies = mDao.listLastMovie();
-		//request.setAttribute("lastMovies", lastMovies);
+		request.setAttribute("lastMovies", lastMovies);
 		session.setAttribute("lastMovies", lastMovies);
 		ArrayList<MovieDto> popularMovies = mDao.listPopularMovie();
-		//request.setAttribute("popularMovies", popularMovies);
+		request.setAttribute("popularMovies", popularMovies);
 		session.setAttribute("popularMovies", popularMovies);
 	}
 }

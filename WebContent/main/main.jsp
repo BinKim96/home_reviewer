@@ -15,8 +15,12 @@
 	  
   });
 </script>
-  <link href="${conPath }/css/movie/movieList.css" rel="stylesheet">
+  
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+<link href="${conPath }/css/movie/movieList.css" rel="stylesheet">
 <body>
   <c:if test="${not empty loginResult}">
 	<script>alert('${loginResult }');</script>

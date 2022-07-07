@@ -8,8 +8,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <style></style>
-<link href="${conPath }/css/main/header.css" rel="stylesheet">
+  <style>
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+  <link href="${conPath }/css/main/header.css" rel="stylesheet">
+  
 </head>
 <body>
   <div id="wrap">
@@ -31,7 +36,7 @@
 			    <li><a href="#">PROFILE</a><li>
 			    <li><a href="#">MODIFY</a><li>
 			    <li><a href="#">MY MOVIE</a><li>
-			  </ul>  -->  	    
+			  </ul>	 -->    
     	    </li>
     	    <li><a href="${conPath }/logout.do"><img src="${conPath }/img/logout.png" class="exit" width="35px" height="35px"></a></li>
     	  </ul>

@@ -25,13 +25,14 @@
 .Login_Form h1{
   text-align:center;
   margin-bottom : 60px;
+  font-family: 'Concert One', cursive;
+  font-size: 4.0em;
 }
 
 .txtb{
   border-bottom: 2px solid #adadad;
-  
-  margin : 30px 0;   
-  }
+  margin : 30px 0;
+ }
 
 .txtb input{
   text-indent : 10px;
@@ -49,9 +50,10 @@
   width :100%;
   height : 50px; 
   border : none; 
-  background: -webkit-linear-gradient(to right, #ffde68, #ffa500);
+  background-color: #fe881d;
+  /* background: -webkit-linear-gradient(to right, #ffde68, #ffa500);
   background: linear-gradient(120deg, #ffde68, #ffa500);
-  D 0%, #B721FF 100%);
+  D 0%, #B721FF 100%); */
   border-radius : 10px;
   background-size : 200%;
   border-color: white;
@@ -59,7 +61,8 @@
   outline : none ;
   cusor : pointer;
   transition :.5s; 
-  font-size: 20px;  
+  font-size: 20px; 
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .loginbt: hover{
@@ -72,6 +75,7 @@
 }
 .bottom-text a {
   font-weight: bold;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 

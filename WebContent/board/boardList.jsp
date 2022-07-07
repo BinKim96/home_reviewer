@@ -47,6 +47,9 @@
 </script>
   <link href="${conPath }/css/board/board.css" rel="stylesheet">
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
 <body>
   <c:set var="SUCCESS" value="1"/>
   <c:set var="FAIL" value="0"/>
@@ -118,7 +121,7 @@
             <td>${board.bNum }</td>
             <td class="tit">
               <c:forEach var="i" begin="1" end="${board.bIndent }">
-              <c:if test="${i==board.bIndent }">└</c:if>
+              <c:if test="${i==board.bIndent }"><img src="${conPath }/img/arrow-right.png" width="15" height="15"></c:if>
               <c:if test="${i!=board.bIndent }"> &nbsp; &nbsp; </c:if>
               </c:forEach>
               ${board.bTitle }

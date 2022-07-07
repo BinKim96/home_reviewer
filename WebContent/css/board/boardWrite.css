@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
 }
+
 form {
 	
 	width: 1000px;
@@ -10,7 +11,7 @@ form {
 }
 
 html {
-    font-size: 10px;
+    /* font-size: 10px; */
 }
 
 ul, li {
@@ -25,6 +26,7 @@ a {
 .board_wrap {
     width: 1000px;
     margin: 100px auto;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .board_title {
@@ -54,28 +56,36 @@ a {
     border: 1px solid #000;
     border-radius: 2px;
     font-size: 1.4rem;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .bt_wrap input[type="submit"]{
 	display: inline-block;
     min-width: 80px;
     margin-left: 10px;
     padding: 10px;
-    border: 1px solid #000;
-    border-radius: 2px;
+    border-radius: 5px;
+    border: none;
     font-size: 1.4rem;
-     background: #000;
+    background: #000;
+    background-color: #fe881d;
     color: #fff;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
 }
+
 .bt_wrap input[type="button"]{
 	display: inline-block;
     min-width: 80px;
     margin-left: 10px;
     padding: 10px;
-    border: 1px solid #000;
-    border-radius: 2px;
+    border-radius: 5px;
     font-size: 1.4rem;
-     background: #000;
+    background: #000;
     color: #fff;
+    background-color: #fe881d;
+    border: none;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .bt_wrap a:first-child {
     margin-left: 0;
@@ -181,18 +191,18 @@ a {
  
 .board_view {
     width: 100%;
-    border-top: 2px solid #000;
+    border-top: 2px solid #fe881d;
 }
 
 .board_view .title {
     padding: 20px 15px;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #fe881d;
     font-size: 2rem;
 }
 
 .board_view .info {
     padding: 15px;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #fe881d;
     font-size: 0;
 }
 
@@ -224,7 +234,7 @@ a {
 .board_view .info dl dt,
 .board_view .info dl dd {
     display: inline-block;
-    font-size: 1.4rem;
+    font-size: 1.0rem;
 }
 
 .board_view .info dl dt {
@@ -238,7 +248,7 @@ a {
 
 .board_view .cont {
     padding: 15px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #fe881d;
     line-height: 160%;
     font-size: 1.4rem;
 }
@@ -274,7 +284,7 @@ a {
 .board_write .info dd {
     display: inline-block;
     vertical-align: middle;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .board_write .title dt,
@@ -309,4 +319,4 @@ a {
         box-sizing: border-box;
         border: 0;
         resize: vertical;
-    }
+}
