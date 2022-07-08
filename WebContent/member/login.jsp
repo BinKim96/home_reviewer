@@ -28,7 +28,7 @@
   <c:if test="${not empty modifyResult}">
 	<script>alert('${modifyResult }');</script>
   </c:if>
-  <c:if test="${not empty joinErrorMsg}">
+  <c:if test="${not empty modifyErrorMsg}">
 	<script>alert('${modifyErrorMsg }');</script>
   </c:if>
   
@@ -38,7 +38,7 @@
     <div class="Login_Form">
       <h1>LOGIN</h1>
       <div class="txtb">
-        <input type="text" name="mId" value="${mId }" required="required">
+        <input type="text" name="mId" required="required">
         <span data-placeholder='Username'></span>
 	  </div>
 	  <div class="txtb">

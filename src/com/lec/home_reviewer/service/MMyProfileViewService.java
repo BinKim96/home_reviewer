@@ -13,6 +13,6 @@ public class MMyProfileViewService implements Service {
 		String mId = request.getParameter("mId");
 		MemberDao mDao = MemberDao.getInstance();
 		MemberDto member = mDao.getMember(mId);
-		request.setAttribute("member", member);
+		request.setAttribute("memberinfo", member);
 	}
 }

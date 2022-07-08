@@ -47,6 +47,13 @@
 			  location.href="${conPath}/movieDelete.do?mvId=${movie.mvId }";
 		  }
 	  });
+	  /* $('.modify').click(function(){
+			var no = $(this).attr('id');
+			var name = $('#name'+no).text();
+			var tel = $('#tel'+no).text();
+			var addr = $('#addr'+no).text();
+			open('${conPath}/scrollAndModify_ver2/modify.jsp?no='+no+'&name='+name+'&tel='+tel+'&addr='+addr, '','width=800,height=50,left=500, top=200');
+	  }); */
   });
 </script>
 <script>
@@ -241,11 +248,15 @@
 		  	<td class="mId">${review.mId }</td>
 		  	<td class="date"><fmt:formatDate value="${review.rbRdate }" type="date" dateStyle="short"/></td>
 		  <c:if test="${(not empty member and empty admin) and (member.mId eq review.mId) }">
-		    <td ><a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'><img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify"></a></td>
+		    <td>
+		      <a href='${conPath}/reviewModifyView.do?rbNum=${review.rbNum}&rbContent=${review.rbContent}&mId=${member.mId }&mvId=${review.mvId }&pageNum=${pageNum}'>
+		        <img src="${conPath }/img/edit.png" width="20px" height="20px" class="modify">
+		      </a>
+		    </td>
 		  </c:if>
 		  <c:if test="${(empty member and not empty admin) or (member.mId eq review.mId)}">
 		    <td>
-		      <img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete_review" onclick="fun(${review.rbNum}, ${review.mvId}, ${pageNum})">
+		      <img src="${conPath }/img/bin.png" width="20px" height="20px" class="delete_review" onclick="fun(${review.rbNum}, ${review.mvId}, ${pageNum});">
 		    </td>
 		  </c:if>
 		  </tr>

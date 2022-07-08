@@ -21,18 +21,18 @@
   <jsp:include page="../main/header.jsp"/>
   <div id="border">
     <table>
-      <caption class="profile">${member.mId }님 프로필</caption>
+      <caption class="profile">${memberinfo.mId }님 프로필</caption>
       
       <tr>
         <td></td>
       </tr>
       <tr>
 		<td>아이디 <b>*</b></td>
-		<td rowspan="8"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" alt="사진" width="200" height="260"></td>
+		<td rowspan="8"><img src="${conPath }/memberPhotoUp/${memberinfo.mPhoto}" alt="사진" width="200" height="260"></td>
 	  </tr>
       <tr>
 		<td>
-		  <input type="text" value="${member.mId }" readonly="readonly">
+		  <input type="text" value="${memberinfo.mId }" readonly="readonly">
 		</td>
 	  </tr>
 				
@@ -42,7 +42,7 @@
 	  <tr>
 		<td>
 		  <c:if test="${not empty member and empty admin }">
-		    <input type="text" value="${member.mPw }" readonly="readonly">
+		    <input type="text" value="${memberinfo.mPw }" readonly="readonly">
 		  </c:if>
 		  <c:if test="${not empty admin }">
 		    <input type="text" value="관리자는 볼 수 없음" readonly="readonly">
@@ -55,7 +55,7 @@
 		</tr>
 		<tr>
 		  <td>
-		    <input type="text" value="${member.mName }" readonly="readonly">
+		    <input type="text" value="${memberinfo.mName }" readonly="readonly">
 		  </td>
 		</tr>
 				
@@ -64,7 +64,7 @@
 		</tr>
 		<tr>
 		  <td>
-		    <input type="text" value="${member.mEmail }" readonly="readonly">
+		    <input type="text" value="${memberinfo.mEmail }" readonly="readonly">
 		  </td>
 		</tr>
     </table>

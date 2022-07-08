@@ -32,11 +32,6 @@
     	    <li><a href="${conPath }/main.do"><img src="${conPath }/img/home.png" class="home" width="35px" height="35px"></a></li>
     	    <li>
     	      <a href="${conPath }/myPageView.do"><img src="${conPath }/img/user.png" class="user" width="35px" height="35px"></a>
-			  <!-- <ul class="submenu">
-			    <li><a href="#">PROFILE</a><li>
-			    <li><a href="#">MODIFY</a><li>
-			    <li><a href="#">MY MOVIE</a><li>
-			  </ul>	 -->    
     	    </li>
     	    <li><a href="${conPath }/logout.do"><img src="${conPath }/img/logout.png" class="exit" width="35px" height="35px"></a></li>
     	  </ul>
@@ -52,7 +47,7 @@
       
       <div id="header_service">
       	<div class="logo">
-      	  <a href="${conPath }/main.do"><img src="${conPath }/img/logo.png" alt="로고" width="130" height="130"></a>
+      	  <a href="${conPath }/main.do"><img src="${conPath }/img/logo.png" alt="로고" ></a>
       	</div>
       	<div class="search">
       	  <form action="${conPath }/movieSearchList.do" method="get" class="search_bar">

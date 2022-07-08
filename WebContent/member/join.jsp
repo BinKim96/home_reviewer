@@ -9,7 +9,9 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <link href="${conPath }/css/member/join.css" rel="stylesheet">
-  <style></style>
+  <style>
+   
+  </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function(){
@@ -87,84 +89,99 @@
 			<table>
 				<tr>
 				  <td class="join"><div>&nbsp;</div>회원가입</td>
+				  <td></td>
 				</tr>                   
 				<tr>
+				  <td></td>
 				  <td></td>
 				</tr>
 				
 				<tr>
 					<td>아이디 <b>*</b></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
 					  <input type="text" name="mId" required="required">
 					  <div id="idConfirmResult">&nbsp;</div>
 					</td>
+					<td></td>
 				</tr>
 				
 				<tr>
 					<td>비밀번호 <b>*</b></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
 					  <input type="password" name="mPw" required="required">
 					  <div>&nbsp;</div>
 					</td>
+					<td></td>
 				</tr>
 				
 				<tr>
 					<td>비밀번호 재확인 <b>*</b></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
 					  <input type="password" name="mPwChk" required="required">
 					  <div id="pwChkResult">&nbsp;</div>
 					</td>
+					<td></td>
 				</tr>
 				
 				<tr>
 					<td>이름 <b>*</b></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
 					  <input type="text" name="mName" required="required">
 					  <div>&nbsp;</div>
 					</td>
+					<td></td>
 				</tr>
 				
 				<tr>
 					<td>이메일 <b>*</b></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
 					  <input type="text" name="mEmail">
 					  <div id="emailConfirmResult">&nbsp;</div>
 					</td>
+					<td></td>
 				</tr>
 				
 				<tr>
 					<td>사진</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
 					  <input type="file" name="mPhoto">
 					  <div>&nbsp;</div>
 					</td>
+					<td></td>
 				</tr>
 				
 				<tr>
-					<td>성별 <b>*</b></td>
-				</tr>
-				<tr>
-					<td colspan="2">
-					  <label for="m" id="m">남자</label><input type="radio" name="mGender" value="m" checked="checked"> 
+					<td rowspan="2">
+					성별 <b>*</b>
+					<label for="m" id="m">남자</label><input type="radio" name="mGender" value="m" checked="checked"> 
 					  <label for="f">여자</label><input type="radio" name="mGender" value="f" id="f">
-					  <div>&nbsp;</div>
 					</td>
 				</tr>
+				<tr>
+					
+					<td rowspan="2"></td>
+				</tr>
 				
 				<tr>
-					<td colspan="2">
+					<td rowspan="2">
 					  <input type="submit" value="가입하기" class="btn"> 
 					</td>
 				</tr>

@@ -46,7 +46,7 @@
       <c:if test="${empty member and not empty admin}"> <!--관리자로그인 후 -->
         <div class="office_address">
             <ul>
-                <li>info@home_reviewer.com | ${admin.aId } | <input type="button" onclick='location.href="${conPath }/movieRegisterView.do"' value="영화등록"></li>
+                <li>info@home_reviewer.com | ${admin.aId } | <input type="button" onclick='location.href="${conPath }/movieRegisterView.do"' value="영화등록" class="btn"></li>
                 <li>(주)방구석평론가 | 대표이사 김 빈 | 사업자번호 010-9670-6113|서울특별시 광진구 능동로37길 31-8 늘해랑 오피스텔</li>
                 <li>
                     ⓒHOWTOSEARCHWEDDINGHALL 2022 ALL RIGHTS RESERVED
