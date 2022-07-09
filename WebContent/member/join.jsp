@@ -171,8 +171,8 @@
 				<tr>
 					<td rowspan="2">
 					성별 <b>*</b>
-					<label for="m" id="m">남자</label><input type="radio" name="mGender" value="m" checked="checked"> 
-					  <label for="f">여자</label><input type="radio" name="mGender" value="f" id="f">
+					<input type="radio" name="mGender" value="m" id="m" checked="checked"><label for="m">남자</label> 
+					<input type="radio" name="mGender" value="f" id="f"><label for="f">여자</label>
 					</td>
 				</tr>
 				<tr>

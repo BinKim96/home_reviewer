@@ -20,9 +20,55 @@
 <body>
   <jsp:include page="../main/header.jsp"/>
   <div id="border">
+  
+  <c:if test="${not empty member and empty admin }">
+    <table>
+      <caption class="profile">${member.mId }님 프로필</caption>
+      
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+		<td>아이디 <b>*</b></td>
+		<td rowspan="8"><img src="${conPath }/memberPhotoUp/${member.mPhoto}" alt="사진" width="200" height="260"></td>
+	  </tr>
+      <tr>
+		<td>
+		  <input type="text" value="${member.mId }" readonly="readonly">
+		</td>
+	  </tr>
+	  <tr>
+		<td>비밀번호 <b>*</b></td>
+	  </tr>
+	  <tr>
+		<td>
+		  <c:if test="${not empty member and empty admin }">
+		    <input type="text" value="${member.mPw }" readonly="readonly">
+		  </c:if>
+		</td>
+		</tr>
+				
+	  <tr>
+		<td>이름 <b>*</b></td>
+      </tr>
+	  <tr>
+		<td>
+		  <input type="text" value="${member.mName }" readonly="readonly">
+		</td>
+	  </tr>
+	  <tr>
+		<td>이메일 <b>*</b></td>
+	  </tr>
+	  <tr>
+		<td>
+		  <input type="text" value="${member.mEmail }" readonly="readonly">
+		</td>
+	  </tr>
+    </table>
+  </c:if>
+  <c:if test="${empty member and not empty admin }">
     <table>
       <caption class="profile">${memberinfo.mId }님 프로필</caption>
-      
       <tr>
         <td></td>
       </tr>
@@ -35,21 +81,14 @@
 		  <input type="text" value="${memberinfo.mId }" readonly="readonly">
 		</td>
 	  </tr>
-				
 	  <tr>
 		<td>비밀번호 <b>*</b></td>
 	  </tr>
 	  <tr>
 		<td>
-		  <c:if test="${not empty member and empty admin }">
-		    <input type="text" value="${memberinfo.mPw }" readonly="readonly">
-		  </c:if>
-		  <c:if test="${not empty admin }">
 		    <input type="text" value="관리자는 볼 수 없음" readonly="readonly">
-		  </c:if>
 		</td>
-		</tr>
-				
+	  </tr>
 		<tr>
 		  <td>이름 <b>*</b></td>
 		</tr>
@@ -58,7 +97,6 @@
 		    <input type="text" value="${memberinfo.mName }" readonly="readonly">
 		  </td>
 		</tr>
-				
 		<tr>
 		  <td>이메일 <b>*</b></td>
 		</tr>
@@ -68,7 +106,10 @@
 		  </td>
 		</tr>
     </table>
+  </c:if>
   </div>
+  
+  
   <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
