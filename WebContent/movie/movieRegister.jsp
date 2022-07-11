@@ -90,7 +90,7 @@
   	  </div>
   	  <div class="bt_wrap">
   	    <input type="submit" value="등록" class="on">
-  	    <input type="button" value="영화목록" class="btn" onclick="location.href='${conPath}/movieList.do'">
+  	    <input type="button" value="목록" class="btn" onclick="location.href='${conPath}/movieList.do'">
   	  </div>
     </div>
   </form>
